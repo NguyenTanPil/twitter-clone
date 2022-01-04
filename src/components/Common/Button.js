@@ -8,6 +8,7 @@ export const Button = styled.button`
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 800;
+  letter-spacing: 0.1rem;
   margin-top: 2rem;
   padding: 1.2rem;
   transition: background-color 0.2s ease-out;
@@ -16,4 +17,13 @@ export const Button = styled.button`
   &:hover {
     background-color: #1a8cd8;
   }
+`;
+
+export const SubmitButton = styled(Button)`
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 0;
+  min-height: 3.6rem;
+  min-width: 3.6rem;
+  padding: 0 1.6rem;
 `;

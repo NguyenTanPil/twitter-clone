@@ -1,17 +1,27 @@
 import styled from 'styled-components';
+import { Avatar } from '../Feed/TweetBox/TweetBoxStyles';
 
 export const Container = styled.aside`
-  border-right: 0.1rem solid ${(props) => props.theme.twitterBackgroundColor};
-  flex: 0.3;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 20%;
+`;
+
+export const Wrap = styled.div`
+  border-right: 0.1rem solid ${(props) => props.theme.border};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   padding-left: 2rem;
   padding-right: 2rem;
-  /* width: 27.5rem; */
+  position: fixed;
+  top: 0;
 `;
 
 export const Logo = styled.div`
   box-sizing: border-box;
   color: ${(props) => props.theme.twitterColor};
-  /* padding-left: 1.2rem; */
   padding-right: 1.2rem;
 
   a {
@@ -26,7 +36,7 @@ export const Logo = styled.div`
     width: 5.2rem;
 
     &:hover {
-      background-color: #e8f5fd;
+      background-color: ${(props) => props.theme.itemHover};
     }
   }
 
@@ -62,8 +72,37 @@ export const OptionContainer = styled.div`
   }
 
   &:hover {
-    background-color: #e8f5fe;
+    background-color: ${(props) => props.theme.itemHover};
     border-radius: 999rem;
     color: ${(props) => props.theme.twitterColor};
   }
+`;
+
+export const User = styled.div`
+  border-radius: 999rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding: 1.2rem;
+  transition: background-color 0.2s ease-out;
+
+  &:hover {
+    background-color: rgba(15, 20, 15, 0.1);
+  }
+`;
+
+export const SmallAvatar = styled(Avatar)`
+  flex-basis: 4rem;
+  padding-top: 0;
+  width: 4rem;
+
+  img {
+    height: 4rem;
+    width: 4rem;
+  }
+`;
+
+export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

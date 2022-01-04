@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  border-right: 0.1rem solid ${(props) => props.theme.twitterBackgroundColor};
-  flex: 0.4;
-  min-width: fit-content;
+  box-sizing: border-box;
+  border-right: 0.1rem solid ${(props) => props.theme.border};
+  padding-bottom: 5rem;
+  width: 50%;
 `;
 
 export const Header = styled.div`

@@ -8,26 +8,6 @@ export const Container = styled.div`
   padding-right: 1.6rem;
 `;
 
-export const Avatar = styled.div`
-  flex-basis: 4.8rem;
-  margin-right: 1.2rem;
-  padding-top: 0.4rem;
-  width: 4.8rem;
-
-  img {
-    border-radius: 50%;
-    cursor: pointer;
-    display: block;
-    height: 4.8rem;
-    transition: opacity 0.2s ease-out;
-    width: 4.8rem;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-`;
-
 export const Form = styled.div`
   display: flex;
   flex-direction: column;

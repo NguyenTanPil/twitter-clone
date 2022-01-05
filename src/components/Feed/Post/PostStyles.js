@@ -2,11 +2,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   border-bottom: 0.1rem solid ${(props) => props.theme.border};
+  box-sizing: border-box;
   cursor: pointer;
   display: flex;
   max-width: 60rem;
   padding: 1.2rem;
   transition: background-color 0.2s ease-out;
+  width: 100%;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.03);
@@ -16,23 +18,13 @@ export const Container = styled.div`
 export const Wrap = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 export const Header = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-`;
-
-export const Info = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  div {
-    display: flex;
-    align-items: center;
-  }
 `;
 
 export const DisplayName = styled.h3`
@@ -48,6 +40,17 @@ export const UserName = styled.span`
   font-weight: 400;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+`;
+
+export const Info = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const MoreIcon = styled.div`
@@ -81,9 +84,11 @@ export const Content = styled.p`
 export const Body = styled.div`
   padding-bottom: 0.4rem;
   padding-top: 1.2rem;
+  width: 100%;
 
   img {
     border-radius: 2rem;
+    object-fit: contain;
     width: 100%;
   }
 `;

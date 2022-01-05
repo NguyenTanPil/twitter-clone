@@ -1,22 +1,70 @@
 import styled from 'styled-components';
-import { Avatar } from '../Feed/TweetBox/TweetBoxStyles';
 
 export const Container = styled.aside`
-  box-sizing: border-box;
   height: 100vh;
-  width: 20%;
+  min-width: 8.4rem;
+  max-width: 27.5rem;
+
+  @media only screen and (min-width: 1280px) {
+    width: 22.5%;
+  }
 `;
 
 export const Wrap = styled.div`
+  background-color: #fff;
   border-right: 0.1rem solid ${(props) => props.theme.border};
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  max-width: 27.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   position: fixed;
   top: 0;
+
+  @media only screen and (min-width: 1280px) {
+    padding-left: 0;
+    padding-right: 2rem;
+  }
+
+  & > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      height: 5rem;
+      width: 5rem;
+
+      span {
+        display: none;
+      }
+
+      svg {
+        font-size: 2rem;
+        font-weight: 600;
+      }
+    }
+
+    @media only screen and (min-width: 1280px) {
+      align-items: flex-start;
+
+      button {
+        height: inherit;
+        width: 100%;
+
+        svg {
+          display: none;
+        }
+
+        span {
+          display: inline-block;
+        }
+      }
+    }
+  }
 `;
 
 export const Logo = styled.div`
@@ -60,10 +108,15 @@ export const OptionContainer = styled.div`
   transition: color 0.2s ease-out;
 
   span {
+    display: none;
     font-size: 2rem;
     font-weight: 800;
     margin-left: 2rem;
     margin-right: 1.6rem;
+
+    @media only screen and (min-width: 1280px) {
+      display: inline-block;
+    }
   }
 
   svg {
@@ -89,16 +142,24 @@ export const User = styled.div`
   &:hover {
     background-color: rgba(15, 20, 15, 0.1);
   }
-`;
 
-export const SmallAvatar = styled(Avatar)`
-  flex-basis: 4rem;
-  padding-top: 0;
-  width: 4rem;
+  & > div:first-child {
+    margin-right: 0;
+  }
+  & > div:nth-child(2),
+  & > div:last-child {
+    display: none;
+  }
 
-  img {
-    height: 4rem;
-    width: 4rem;
+  @media only screen and (min-width: 1280px) {
+    & > div:nth-child(2),
+    & > div:last-child {
+      display: block;
+    }
+
+    & > div:first-child {
+      margin-right: 1.2rem;
+    }
   }
 `;
 

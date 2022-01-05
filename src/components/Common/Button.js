@@ -27,3 +27,13 @@ export const SubmitButton = styled(Button)`
   min-width: 3.6rem;
   padding: 0 1.6rem;
 `;
+
+export const FollowButton = styled(SubmitButton)`
+  background-color: #0f1419;
+  min-height: 3.2rem;
+  min-width: 3.2rem;
+
+  &:hover {
+    background-color: rgb(39, 44, 48);
+  }
+`;

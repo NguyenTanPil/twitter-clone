@@ -5,13 +5,13 @@ import {
   SidebarOptions,
   User,
   Info,
-  SmallAvatar,
 } from './SidebarStyles';
+import { SmallAvatar } from '../Common/Avatar';
 import SidebarOption from './SidebarOption';
 import { BsTwitter } from 'react-icons/bs';
 import { BiBookmark } from 'react-icons/bi';
 import { HiOutlineMail } from 'react-icons/hi';
-import { CgList, CgProfile, CgMore } from 'react-icons/cg';
+import { CgList, CgProfile, CgMore, CgMathPlus } from 'react-icons/cg';
 import {
   RiHomeHeartFill,
   RiHashtag,
@@ -41,7 +41,10 @@ const Sidebar = () => {
             <SidebarOption text="Profile" Icon={CgProfile} />
             <SidebarOption text="More" Icon={RiMoreFill} />
           </SidebarOptions>
-          <Button>Twitter</Button>
+          <Button>
+            <span>Tweet</span>
+            <CgMathPlus />
+          </Button>
         </div>
 
         <User>

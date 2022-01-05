@@ -1,5 +1,5 @@
 import { CgMore } from 'react-icons/cg';
-import { Avatar } from '../TweetBox/TweetBoxStyles';
+import { Avatar } from '../../Common/Avatar';
 import {
   Action,
   Body,

@@ -1,7 +1,15 @@
 .App {
   display: flex;
   flex-wrap: wrap;
-  max-width: 128rem;
+  max-width: 69rem;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media only screen and (min-width: 1200px) {
+  .App {
+    max-width: 124rem;
+  }
 }

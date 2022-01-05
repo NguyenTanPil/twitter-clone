@@ -1,6 +1,5 @@
 import {
   Container,
-  Avatar,
   Form,
   Input,
   Options,
@@ -15,6 +14,7 @@ import { RiImageLine } from 'react-icons/ri';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { AiOutlineSchedule } from 'react-icons/ai';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { Avatar } from '../../Common/Avatar';
 
 const TweetBox = () => {
   return (

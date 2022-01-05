@@ -3,8 +3,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
   box-sizing: border-box;
   border-right: 0.1rem solid ${(props) => props.theme.border};
+  flex-grow: 1;
   padding-bottom: 5rem;
-  width: 50%;
+  width: calc(100% - 8.4rem);
+
+  @media only screen and (min-width: 992px) {
+    width: 47.5%;
+  }
 `;
 
 export const Header = styled.div`

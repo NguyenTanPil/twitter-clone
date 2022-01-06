@@ -38,8 +38,12 @@ export const UserName = styled.span`
   color: #536471;
   font-size: 1.5rem;
   font-weight: 400;
-  padding-left: 0.25rem;
+  padding-left: 0;
   padding-right: 0.25rem;
+
+  @media only screen and (min-width: 576px) {
+    padding-left: 0.25rem;
+  }
 `;
 
 export const Info = styled.div`
@@ -50,6 +54,7 @@ export const Info = styled.div`
   div {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
   }
 `;
 
@@ -78,7 +83,11 @@ export const Content = styled.p`
   font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 0.5rem;
+
+  @media only screen and (min-width: 576px) {
+    margin-top: 0;
+  }
 `;
 
 export const Body = styled.div`

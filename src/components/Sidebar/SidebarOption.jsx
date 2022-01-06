@@ -1,8 +1,8 @@
 import { OptionContainer } from './SidebarStyles';
 
-const SidebarOption = ({ active, text, Icon }) => {
+const SidebarOption = ({ active, hideInPhone, text, Icon }) => {
   return (
-    <OptionContainer active={active}>
+    <OptionContainer active={active} hideInPhone={hideInPhone}>
       <Icon />
       <span>{text}</span>
     </OptionContainer>

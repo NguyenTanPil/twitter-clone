@@ -2,12 +2,19 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   box-sizing: border-box;
-  margin-left: 8.4rem;
-  padding-left: 2rem;
+  margin-left: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
   width: 100%;
+
+  @media only screen and (min-width: 576px) {
+    margin-left: 8.4rem;
+  }
 
   @media only screen and (min-width: 992px) {
     margin-left: 0;
+    padding-left: 2rem;
+    padding-right: 0;
     width: 30%;
   }
 `;
@@ -153,6 +160,7 @@ export const FollowItem = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 1.2rem 1.6rem;
   transition: background-color 0.2s ease-out;
@@ -169,5 +177,11 @@ export const FollowItem = styled.div`
   & > div:first-child {
     display: flex;
     align-items: center;
+  }
+
+  & > div:last-child {
+    display: flex;
+    align-items: center;
+    height: 5.2rem;
   }
 `;

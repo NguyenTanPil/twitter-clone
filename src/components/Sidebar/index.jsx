@@ -33,12 +33,12 @@ const Sidebar = () => {
           </Logo>
           <SidebarOptions>
             <SidebarOption active text="Home" Icon={RiHomeHeartFill} />
-            <SidebarOption text="Explore" Icon={RiHashtag} />
+            <SidebarOption hideInPhone text="Explore" Icon={RiHashtag} />
             <SidebarOption text="Notifications" Icon={RiNotification3Line} />
             <SidebarOption text="Messages" Icon={HiOutlineMail} />
-            <SidebarOption text="Bookmarks" Icon={BiBookmark} />
-            <SidebarOption text="List" Icon={CgList} />
-            <SidebarOption text="Profile" Icon={CgProfile} />
+            <SidebarOption hideInPhone text="Bookmarks" Icon={BiBookmark} />
+            <SidebarOption hideInPhone text="List" Icon={CgList} />
+            <SidebarOption hideInPhone text="Profile" Icon={CgProfile} />
             <SidebarOption text="More" Icon={RiMoreFill} />
           </SidebarOptions>
           <Button>

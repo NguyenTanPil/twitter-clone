@@ -16,7 +16,7 @@ export const Form = styled.div`
 
 export const Input = styled.div`
   box-sizing: border-box;
-  height: 5.6rem;
+  height: 4.2rem;
 
   input {
     border: none;
@@ -26,21 +26,36 @@ export const Input = styled.div`
     line-height: 2.4rem;
     outline: none;
     padding-bottom: 0.8rem;
-    padding-top: 1.6rem;
+    padding-top: 1.2rem;
     width: 100%;
+  }
+
+  @media only screen and (min-width: 576px) {
+    height: 5.6rem;
+
+    input {
+      padding-bottom: 0.8rem;
+      padding-top: 1.6rem;
+    }
   }
 `;
 
 export const Options = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
 `;
 
 export const OptionWrap = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 1.2rem;
+  margin-top: 0.6rem;
+
+  @media only screen and (min-width: 576px) {
+    margin-top: 1.2rem;
+  }
 `;
 
 export const Option = styled.div`
@@ -65,6 +80,8 @@ export const Option = styled.div`
 `;
 
 export const OptionSubmit = styled.div`
-  margin-top: 1.2rem;
-  padding-left: 1.2rem;
+  @media only screen and (min-width: 576px) {
+    margin-top: 1.2rem;
+    padding-left: 1.2rem;
+  }
 `;

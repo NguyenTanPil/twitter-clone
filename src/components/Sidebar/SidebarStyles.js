@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.aside`
-  height: 100vh;
-  min-width: 8.4rem;
-  max-width: 27.5rem;
+  @media only screen and (min-width: 576px) {
+    height: 100vh;
+    max-width: 27.5rem;
+    min-width: 8.4rem;
+  }
 
   @media only screen and (min-width: 1280px) {
     width: 22.5%;
@@ -17,14 +19,22 @@ export const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
-  max-width: 27.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   position: fixed;
-  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1008;
+
+  @media only screen and (min-width: 576px) {
+    bottom: auto;
+    height: 100%;
+    max-width: 8.4rem;
+    top: 0;
+  }
 
   @media only screen and (min-width: 1280px) {
+    max-width: 27.5rem;
     padding-left: 0;
     padding-right: 2rem;
   }
@@ -35,8 +45,13 @@ export const Wrap = styled.div`
     align-items: center;
 
     button {
+      display: none;
       height: 5rem;
       width: 5rem;
+
+      @media only screen and (min-width: 576px) {
+        display: block;
+      }
 
       span {
         display: none;
@@ -69,8 +84,16 @@ export const Wrap = styled.div`
 
 export const Logo = styled.div`
   box-sizing: border-box;
+  display: none;
   color: ${(props) => props.theme.twitterColor};
-  padding-right: 1.2rem;
+
+  @media only screen and (min-width: 576px) {
+    display: block;
+  }
+
+  @media only screen and (min-width: 992px) {
+    padding-right: 1.2rem;
+  }
 
   a {
     border-radius: 50%;
@@ -96,16 +119,28 @@ export const Logo = styled.div`
 
 export const SidebarOptions = styled.nav`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+
+  @media only screen and (min-width: 576px) {
+    flex-direction: column;
+    justify-content: inherit;
+    width: auto;
+  }
 `;
 
 export const OptionContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.hideInPhone ? 'none' : 'flex')};
   align-items: center;
   color: ${(props) => (props.active ? props.theme.twitterColor : '#000')};
   cursor: pointer;
   padding: 1.2rem;
   transition: color 0.2s ease-out;
+
+  @media only screen and (min-width: 576px) {
+    display: flex;
+  }
 
   span {
     display: none;
@@ -133,11 +168,15 @@ export const OptionContainer = styled.div`
 
 export const User = styled.div`
   border-radius: 999rem;
-  display: flex;
+  display: none;
   align-items: center;
   margin-bottom: 1.2rem;
   padding: 1.2rem;
   transition: background-color 0.2s ease-out;
+
+  @media only screen and (min-width: 576px) {
+    display: flex;
+  }
 
   &:hover {
     background-color: rgba(15, 20, 15, 0.1);

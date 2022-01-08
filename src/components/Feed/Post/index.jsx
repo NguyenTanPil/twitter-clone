@@ -46,18 +46,11 @@ const getTimeCreated = (createdTime) => {
   return result;
 };
 
-const Post = ({
-  avartar,
-  createdAt,
-  displayName,
-  image,
-  content,
-  userName,
-}) => {
+const Post = ({ avatar, createdAt, displayName, image, content, userName }) => {
   return (
     <Container>
       <Avatar>
-        <img src={avartar} alt="avt" />
+        <img src={avatar} alt="avt" />
       </Avatar>
       <Wrap>
         <Header>

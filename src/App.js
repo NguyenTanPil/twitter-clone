@@ -1,16 +1,19 @@
 import './App.css';
-import Feed from './components/Feed';
-import Sidebar from './components/Sidebar';
-import Wedgets from './components/Wedgets';
 import GlobalStyle from './GlobalStyles';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Login from './components/Login';
 
 function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <Sidebar />
-      <Feed />
-      <Wedgets />
+      <Router>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

@@ -59,3 +59,10 @@ export const Header = styled.div`
     }
   }
 `;
+
+export const LoadingPosts = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+`;

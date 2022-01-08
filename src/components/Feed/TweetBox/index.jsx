@@ -15,15 +15,16 @@ import { BsEmojiSmile } from 'react-icons/bs';
 import { AiOutlineSchedule } from 'react-icons/ai';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { Avatar } from '../../Common/Avatar';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../features/user/userSlice';
 
 const TweetBox = () => {
+  const user = useSelector(selectUser);
+
   return (
     <Container>
       <Avatar>
-        <img
-          src="https://pbs.twimg.com/profile_images/1477919658590146560/bQxLDkoP_400x400.png"
-          alt="avt"
-        />
+        <img src={user.avatar} alt="avt" />
       </Avatar>
       <Form>
         <Input>

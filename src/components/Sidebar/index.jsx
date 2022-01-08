@@ -21,7 +21,7 @@ import {
 import { Button } from '../Common/Button';
 import { MoreIcon, DisplayName, UserName } from '../Feed/Post/PostStyles';
 
-const Sidebar = () => {
+const Sidebar = ({ user }) => {
   return (
     <Container>
       <Wrap>
@@ -49,14 +49,11 @@ const Sidebar = () => {
 
         <User>
           <SmallAvatar>
-            <img
-              src="https://pbs.twimg.com/profile_images/1477919658590146560/bQxLDkoP_400x400.png"
-              alt=""
-            />
+            <img src={user.avatar} alt="" />
           </SmallAvatar>
           <Info>
-            <DisplayName>Felix Nguyen</DisplayName>
-            <UserName>@NguyenTanPil</UserName>
+            <DisplayName>{user.name}</DisplayName>
+            <UserName>@{user.name}</UserName>
           </Info>
           <MoreIcon>
             <CgMore />

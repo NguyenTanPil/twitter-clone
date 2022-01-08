@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     /* background-color: #f3f3f3; */
     box-sizing: border-box;
     color: #0f1419;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
   }

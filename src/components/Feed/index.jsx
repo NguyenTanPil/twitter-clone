@@ -1,28 +1,39 @@
-import { Container, Header } from './FeedStyles';
+import { Container, Header, LoadingPosts } from './FeedStyles';
 import { BsStars } from 'react-icons/bs';
 import TweetBox from './TweetBox';
 import Post from './Post';
 import { useEffect, useState } from 'react';
 import db from '../../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import loadingImg from './loading-posts.gif';
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(async () => {
-    const response = [];
+    let isSubscribed = true;
 
-    try {
-      const querySnapshot = await getDocs(collection(db, 'posts'));
-      querySnapshot.forEach((doc) => {
-        const createdAt = doc._document.version.timestamp.seconds;
-        response.push({ id: doc.id, createdAt, ...doc.data() });
-      });
-    } catch (e) {
-      console.log('Error', e);
+    if (isSubscribed) {
+      const response = [];
+      setIsLoading(true);
+      try {
+        const querySnapshot = await getDocs(collection(db, 'posts'));
+        querySnapshot.forEach((doc) => {
+          const createdAt = doc._document.version.timestamp.seconds;
+          response.push({ id: doc.id, createdAt, ...doc.data() });
+        });
+      } catch (e) {
+        console.log('Error', e.message);
+      }
+
+      setIsLoading(false);
+      setPosts(response);
     }
 
-    setPosts(response);
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return (
@@ -35,21 +46,34 @@ const Feed = () => {
       </Header>
       <TweetBox />
 
-      {posts.map((post) => {
-        const { id, avatar, createdAt, displayName, userName, content, image } =
-          post;
-        return (
-          <Post
-            key={id}
-            avartar={avatar}
-            createdAt={createdAt}
-            displayName={displayName}
-            image={image}
-            content={content}
-            userName={userName}
-          />
-        );
-      })}
+      {isLoading ? (
+        <LoadingPosts>
+          <img src={loadingImg} alt="" />
+        </LoadingPosts>
+      ) : (
+        posts.map((post) => {
+          const {
+            id,
+            avatar,
+            createdAt,
+            displayName,
+            userName,
+            content,
+            image,
+          } = post;
+          return (
+            <Post
+              key={id}
+              avatar={avatar}
+              createdAt={createdAt}
+              displayName={displayName}
+              image={image}
+              content={content}
+              userName={userName}
+            />
+          );
+        })
+      )}
     </Container>
   );
 };

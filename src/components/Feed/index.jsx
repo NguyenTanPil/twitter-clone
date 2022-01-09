@@ -11,12 +11,15 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
     let isSubscribed = true;
 
-    if (isSubscribed) {
+    const fetchPosts = async () => {
       const response = [];
-      setIsLoading(true);
+      if (isSubscribed) {
+        setIsLoading(true);
+      }
+
       try {
         const querySnapshot = await getDocs(collection(db, 'posts'));
         querySnapshot.forEach((doc) => {
@@ -27,9 +30,13 @@ const Feed = () => {
         console.log('Error', e.message);
       }
 
-      setIsLoading(false);
-      setPosts(response);
-    }
+      if (isSubscribed) {
+        setIsLoading(false);
+        setPosts(response);
+      }
+    };
+
+    fetchPosts();
 
     return () => {
       isSubscribed = false;

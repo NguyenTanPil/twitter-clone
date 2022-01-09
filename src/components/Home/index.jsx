@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <>
       <Sidebar user={user} />
-      <Feed />
+      <Feed user={user} />
       <Wedgets />
     </>
   );

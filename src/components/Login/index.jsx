@@ -1,12 +1,21 @@
+import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import { useEffect, useState } from 'react';
 import { AiFillLock } from 'react-icons/ai';
-import { BsFillPersonFill, BsTwitter } from 'react-icons/bs';
+import { BsTwitter } from 'react-icons/bs';
 import { FaFacebookF } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import { MdEmail } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import { setLoginDetail } from '../../features/user/userSlice';
+import { auth, provider } from '../../firebase';
 import { Button } from '../Common/Button';
+import { Form, Formik } from 'formik';
 import {
+  ChooseOption,
   Container,
   ContentForm,
-  InputGroup,
   LoginButton,
   LoginForm,
   Logo,
@@ -14,13 +23,34 @@ import {
   Or,
   Wrap,
 } from './LoginStyles';
-import { signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '../../firebase';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setLoginDetail } from '../../features/user/userSlice';
-import { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
+import Input from '../Input';
+
+const validate = {
+  // check email
+  email(value) {
+    let error;
+
+    if (!value) {
+      error = 'Please enter your email address';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      error = 'Invalid email address';
+    }
+
+    return error;
+  },
+  // check password
+  password(value) {
+    let error;
+
+    if (!value) {
+      error = 'Please enter your password';
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+      error = 'Minimum 8 characters, at least one letter and one number';
+    }
+
+    return error;
+  },
+};
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState();
@@ -30,25 +60,47 @@ const Login = () => {
 
   const setCookie = (data) => {
     const user = JSON.stringify(data);
-    cookies.set('user', user, { path: '/', maxAge: 60 * 2, sameSite: true });
+    cookies.set('user', user, { path: '/', maxAge: 60 * 10, sameSite: true });
   };
 
-  const handleLogin = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = {
-          name: result.user.displayName,
-          email: result.user.email,
-          avatar: result.user.photoURL,
-        };
+  const handleAfterLogin = (response) => {
+    const user = {
+      name: response.user.displayName,
+      email: response.user.email,
+      avatar: response.user.photoURL,
+    };
 
-        dispatch(setLoginDetail(user));
-        setCookie(user);
-        setUserInfo(user);
+    dispatch(setLoginDetail(user));
+    setCookie(user);
+    setUserInfo(user);
+  };
+
+  const handleLoginWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((response) => {
+        handleAfterLogin(response);
       })
       .catch((error) => {
         const errorMessage = error.message;
         console.log(errorMessage);
+      });
+  };
+
+  const handleLoginWithEmailAndPassword = (values) => {
+    const { email, password } = values;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((response) => {
+        handleAfterLogin(response);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === 'auth/user-not-found') {
+          alert('Email or password is incorrect. Try again! ');
+        } else {
+          console.log('Error login', errorMessage);
+        }
       });
   };
 
@@ -64,54 +116,76 @@ const Login = () => {
     <Container>
       <Wrap>
         <LoginForm>
-          <form>
-            <Logo>
-              <BsTwitter />
-              <h2>Login to Twitter</h2>
-            </Logo>
-            <ContentForm>
-              <InputGroup>
-                <div>
-                  <BsFillPersonFill />
-                </div>
-                <input type="text" placeholder="Username" autoComplete="true" />
-              </InputGroup>
-              <InputGroup>
-                <div>
-                  <AiFillLock />
-                </div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  autoComplete="current-password"
-                />
-              </InputGroup>
-              <LoginButton>
-                <Button>LOGIN</Button>
-              </LoginButton>
-              <Or>
-                <div></div>
-                <span>OR</span>
-                <div></div>
-              </Or>
-              <MiddleLogin facebook>
-                <div>
-                  <FaFacebookF />
-                </div>
-                <div>
-                  <span>Login with Facebook</span>
-                </div>
-              </MiddleLogin>
-              <MiddleLogin onClick={handleLogin}>
-                <div>
-                  <FcGoogle />
-                </div>
-                <div>
-                  <span>Login with Google</span>
-                </div>
-              </MiddleLogin>
-            </ContentForm>
-          </form>
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            validateOnChange={false}
+            validateOnBlur={true}
+            onSubmit={handleLoginWithEmailAndPassword}
+          >
+            {({ errors, touched, validateForm, handleSubmit }) => (
+              <Form onSubmit={handleSubmit} noValidate>
+                <Logo>
+                  <BsTwitter />
+                  <h2>Login to Twitter</h2>
+                </Logo>
+                <ContentForm>
+                  <Input
+                    Icon={MdEmail}
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    validateFunc={validate.email}
+                    errorMessage={errors.email && touched.email && errors.email}
+                    touched={touched.email}
+                  />
+                  <Input
+                    Icon={AiFillLock}
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    validateFunc={validate.password}
+                    errorMessage={
+                      errors.password && touched.password && errors.password
+                    }
+                    touched={touched.password}
+                  />
+                  <LoginButton>
+                    <Button type="submit" onClick={() => validateForm()}>
+                      LOGIN
+                    </Button>
+                  </LoginButton>
+                  <ChooseOption>
+                    <span>Don't have a account?</span>
+                    <Link to="/signup">Sign Up</Link>
+                  </ChooseOption>
+                  <Or>
+                    <div></div>
+                    <span>OR</span>
+                    <div></div>
+                  </Or>
+                  <MiddleLogin facebook>
+                    <div>
+                      <FaFacebookF />
+                    </div>
+                    <div>
+                      <span>Login with Facebook</span>
+                    </div>
+                  </MiddleLogin>
+                  <MiddleLogin onClick={handleLoginWithGoogle}>
+                    <div>
+                      <FcGoogle />
+                    </div>
+                    <div>
+                      <span>Login with Google</span>
+                    </div>
+                  </MiddleLogin>
+                </ContentForm>
+              </Form>
+            )}
+          </Formik>
         </LoginForm>
       </Wrap>
     </Container>

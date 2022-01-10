@@ -4,7 +4,7 @@ import TweetBox from './TweetBox';
 import Post from './Post';
 import { useEffect, useState } from 'react';
 import db from '../../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import loadingImg from './loading-posts.gif';
 
 const Feed = () => {
@@ -21,10 +21,11 @@ const Feed = () => {
       }
 
       try {
-        const querySnapshot = await getDocs(collection(db, 'posts'));
-        querySnapshot.forEach((doc) => {
-          const createdAt = doc._document.version.timestamp.seconds;
-          response.push({ id: doc.id, createdAt, ...doc.data() });
+        const postsRef = collection(db, 'posts');
+        const queryPosts = query(postsRef, orderBy('createdAt', 'desc'));
+        const posts = await getDocs(queryPosts);
+        posts.forEach((doc) => {
+          response.push({ id: doc.id, ...doc.data() });
         });
       } catch (e) {
         console.log('Error', e.message);

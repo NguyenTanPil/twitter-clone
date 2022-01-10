@@ -56,11 +56,11 @@ const Login = () => {
   const [userInfo, setUserInfo] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cookies = new Cookies();
 
   const setCookie = (data) => {
+    const cookies = new Cookies();
     const user = JSON.stringify(data);
-    cookies.set('user', user, { path: '/', maxAge: 60 * 10, sameSite: true });
+    cookies.set('user', user, { path: '/', maxAge: 60 * 60, sameSite: true });
   };
 
   const handleAfterLogin = (response) => {
@@ -106,11 +106,13 @@ const Login = () => {
 
   useEffect(() => {
     // If logined => current url is /home and setUser
+    const cookies = new Cookies();
     const user = cookies.get('user');
+
     if (user) {
       navigate('/home');
     }
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
   return (
     <Container>

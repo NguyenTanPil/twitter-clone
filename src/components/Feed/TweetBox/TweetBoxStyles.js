@@ -19,10 +19,11 @@ export const Input = styled.div`
   height: 4.2rem;
 
   input {
+    color: ${(props) => props.theme.fontColor};
     border: none;
     box-sizing: border-box;
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 2.4rem;
     outline: none;
     padding-bottom: 0.8rem;
@@ -58,7 +59,7 @@ export const OptionWrap = styled.div`
   }
 `;
 
-export const Option = styled.div`
+export const Option = styled.label`
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -73,6 +74,10 @@ export const Option = styled.div`
     background-color: #e8f5fd;
   }
 
+  input {
+    width: 0;
+  }
+
   svg {
     color: ${(props) => props.theme.twitterColor};
     font-size: 1.8rem;
@@ -83,5 +88,43 @@ export const OptionSubmit = styled.div`
   @media only screen and (min-width: 576px) {
     margin-top: 1.2rem;
     padding-left: 1.2rem;
+  }
+`;
+
+export const Preview = styled.div`
+  padding-bottom: 0.4rem;
+  padding-top: 1.2rem;
+  position: relative;
+  transition: all 0.2s ease;
+  width: 100%;
+
+  img {
+    border-radius: 2rem;
+    object-fit: contain;
+    width: 100%;
+  }
+`;
+
+export const CloseButton = styled.div`
+  border-radius: 999rem;
+  background-color: #fff;
+  color: ${(props) => props.theme.twitterColor};
+  display: ${(props) => (props.hideInPhone ? 'none' : 'flex')};
+  align-items: center;
+  cursor: pointer;
+  padding: 1.2rem;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  transition: all 0.2s ease-out;
+  z-index: 1008;
+
+  &:hover {
+    background-color: ${(props) => props.theme.itemHover};
+  }
+
+  svg {
+    height: 2rem;
+    width: 2rem;
   }
 `;

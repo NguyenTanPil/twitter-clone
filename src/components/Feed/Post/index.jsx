@@ -17,12 +17,14 @@ import { BiComment } from 'react-icons/bi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { TiArrowSync } from 'react-icons/ti';
 import { BiUpload } from 'react-icons/bi';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const getTimeCreated = (createdTime) => {
   const dt = new Date();
   const currentTime = dt.getTime();
 
-  const unix_timestamp = (currentTime - createdTime * 1000) / 1000;
+  const unix_timestamp = (currentTime - createdTime) / 1000;
   var days = Math.floor(unix_timestamp / (3600 * 24));
   var hours = Math.floor((unix_timestamp % (3600 * 24)) / 3600);
   var minutes = Math.floor((unix_timestamp % 3600) / 60);
@@ -48,55 +50,57 @@ const getTimeCreated = (createdTime) => {
 
 const Post = ({ avatar, createdAt, displayName, image, content, userName }) => {
   return (
-    <Container>
-      <Avatar>
-        <img src={avatar} alt="avt" />
-      </Avatar>
-      <Wrap>
-        <Header>
-          <Info>
-            <div>
-              <DisplayName>{displayName}</DisplayName>
-              <UserName>{userName}</UserName>
-              <UserName>·</UserName>
-              <UserName>{getTimeCreated(createdAt)}</UserName>
-            </div>
-            <MoreIcon>
-              <CgMore />
-            </MoreIcon>
-          </Info>
-          <Content>{content}</Content>
-        </Header>
-        <Body>
-          <img src={image} alt="" />
-        </Body>
-        <Footer>
-          <Action>
-            <div>
-              <BiComment />
-            </div>
-            <span>27</span>
-          </Action>
-          <Action>
-            <div>
-              <TiArrowSync />
-            </div>
-            <span>23</span>
-          </Action>
-          <Action>
-            <div>
-              <AiOutlineHeart />
-            </div>
-            <span>23</span>
-          </Action>
-          <Action>
-            <div>
-              <BiUpload />
-            </div>
-          </Action>
-        </Footer>
-      </Wrap>
-    </Container>
+    <LazyLoadComponent>
+      <Container>
+        <Avatar>
+          <img src={avatar} alt="avt" />
+        </Avatar>
+        <Wrap>
+          <Header>
+            <Info>
+              <div>
+                <DisplayName>{displayName}</DisplayName>
+                <UserName>{userName}</UserName>
+                <UserName>·</UserName>
+                <UserName>{getTimeCreated(createdAt)}</UserName>
+              </div>
+              <MoreIcon>
+                <CgMore />
+              </MoreIcon>
+            </Info>
+            <Content>{content}</Content>
+          </Header>
+          <Body>
+            <img src={image} alt="" />
+          </Body>
+          <Footer>
+            <Action>
+              <div>
+                <BiComment />
+              </div>
+              <span>27</span>
+            </Action>
+            <Action>
+              <div>
+                <TiArrowSync />
+              </div>
+              <span>23</span>
+            </Action>
+            <Action>
+              <div>
+                <AiOutlineHeart />
+              </div>
+              <span>23</span>
+            </Action>
+            <Action>
+              <div>
+                <BiUpload />
+              </div>
+            </Action>
+          </Footer>
+        </Wrap>
+      </Container>
+    </LazyLoadComponent>
   );
 };
 

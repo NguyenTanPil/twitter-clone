@@ -131,6 +131,7 @@ export const SidebarOptions = styled.nav`
 `;
 
 export const OptionContainer = styled.div`
+  border-radius: 999rem;
   display: ${(props) => (props.hideInPhone ? 'none' : 'flex')};
   align-items: center;
   color: ${(props) => (props.active ? props.theme.twitterColor : '#000')};
@@ -161,7 +162,6 @@ export const OptionContainer = styled.div`
 
   &:hover {
     background-color: ${(props) => props.theme.itemHover};
-    border-radius: 999rem;
     color: ${(props) => props.theme.twitterColor};
   }
 `;

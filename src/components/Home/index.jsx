@@ -9,18 +9,18 @@ import Wedgets from '../Wedgets';
 
 const Home = () => {
   const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-  const cookies = new Cookies();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    const cookies = new Cookies();
     const user = cookies.get('user');
     if (user) {
       dispatch(setLoginDetail(user));
     } else {
       navigate('/');
     }
-  }, []);
+  }, [navigate, dispatch]);
 
   return (
     <>

@@ -1,32 +1,37 @@
+import { addDoc, collection } from 'firebase/firestore';
+import { useState } from 'react';
+import { AiOutlineClose, AiOutlineSchedule } from 'react-icons/ai';
+import { BiGift } from 'react-icons/bi';
+import { BsEmojiSmile } from 'react-icons/bs';
+import { CgPoll } from 'react-icons/cg';
+import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { RiImageLine } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPost } from '../../../features/posts/postsSlice';
+import { selectUser } from '../../../features/user/userSlice';
+import db from '../../../firebase';
+import { Avatar } from '../../Common/Avatar';
+import { SubmitButton } from '../../Common/Button';
+import loadingNewPostImg from '../loading-post-item.gif';
 import {
+  CloseButton,
   Container,
   Form,
   Input,
-  Options,
-  OptionWrap,
-  OptionSubmit,
+  LoadingNewPost,
   Option,
+  Options,
+  OptionSubmit,
+  OptionWrap,
   Preview,
-  CloseButton,
 } from './TweetBoxStyles';
-import { SubmitButton } from '../../Common/Button';
-import { CgPoll } from 'react-icons/cg';
-import { BiGift } from 'react-icons/bi';
-import { RiImageLine } from 'react-icons/ri';
-import { BsEmojiSmile } from 'react-icons/bs';
-import { AiOutlineSchedule, AiOutlineClose } from 'react-icons/ai';
-import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { Avatar } from '../../Common/Avatar';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../../features/user/userSlice';
-import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import db from '../../../firebase';
 
 const TweetBox = () => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [postContent, setPostContent] = useState('');
   const [image, setImage] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handlePreviewImage = (e) => {
     const reader = new FileReader();
@@ -48,6 +53,7 @@ const TweetBox = () => {
     // Reset tweetbox
     setPostContent('');
     setImage('');
+    setLoading(true);
 
     // Upload image to cloudinary
     const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}/image/upload`;
@@ -72,7 +78,7 @@ const TweetBox = () => {
     // Add post to firebase store
     const dt = new Date();
     const createdAt = dt.getTime();
-    const docRef = await addDoc(collection(db, 'posts'), {
+    const post = {
       avatar: user.avatar,
       content: postContent,
       displayName: user.name,
@@ -80,9 +86,21 @@ const TweetBox = () => {
       userName: `@${user.name}`,
       verified: false,
       createdAt: createdAt,
-    });
+    };
+    const docRef = await addDoc(collection(db, 'posts'), post);
+    const id = docRef.id;
 
-    console.log(docRef);
+    dispatch(
+      addPost({
+        post: {
+          ...post,
+          id,
+        },
+      }),
+    );
+
+    // unshow loading
+    setLoading(false);
   };
 
   return (
@@ -95,7 +113,6 @@ const TweetBox = () => {
           <input
             type="text"
             placeholder="What's happening?"
-            accept="image/jpeg,image/png,image/webp,image/gif"
             value={postContent}
             onChange={(e) => setPostContent(e.target.value)}
           />
@@ -115,13 +132,14 @@ const TweetBox = () => {
               <input
                 id="upload-image"
                 type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
                 onChange={handlePreviewImage}
               />
             </Option>
-            <Option title="GIF">
+            <Option title="GIF" disabled={image ? 1 : 0}>
               <BiGift />
             </Option>
-            <Option title="Poll">
+            <Option title="Poll" disabled={image ? 1 : 0}>
               <CgPoll />
             </Option>
             <Option title="Emoji">
@@ -134,11 +152,21 @@ const TweetBox = () => {
               <HiOutlineLocationMarker />
             </Option>
           </OptionWrap>
-          <OptionSubmit>
-            <SubmitButton onClick={handlePost}>Tweet</SubmitButton>
+          <OptionSubmit disabled={postContent || image ? 0 : 1}>
+            <SubmitButton
+              disabled={postContent || image ? false : true}
+              onClick={handlePost}
+            >
+              Tweet
+            </SubmitButton>
           </OptionSubmit>
         </Options>
       </Form>
+      <LoadingNewPost loading={loading ? 1 : 0}>
+        <div>
+          <img src={loadingNewPostImg} alt="" />
+        </div>
+      </LoadingNewPost>
     </Container>
   );
 };

@@ -6,9 +6,12 @@ import { useEffect, useState } from 'react';
 import db from '../../firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import loadingImg from './loading-posts.gif';
+import { setPosts, selectPosts } from '../../features/posts/postsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Feed = () => {
-  const [posts, setPosts] = useState([]);
+  const { posts } = useSelector(selectPosts);
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -33,7 +36,11 @@ const Feed = () => {
 
       if (isSubscribed) {
         setIsLoading(false);
-        setPosts(response);
+        dispatch(
+          setPosts({
+            posts: response,
+          }),
+        );
       }
     };
 

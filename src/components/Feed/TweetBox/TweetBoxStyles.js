@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  border-bottom: 0.1rem solid ${(props) => props.theme.border};
   display: flex;
-  padding-bottom: 1.6rem;
+  flex-wrap: wrap;
   padding-left: 1.6rem;
   padding-right: 1.6rem;
 `;
@@ -61,17 +60,19 @@ export const OptionWrap = styled.div`
 
 export const Option = styled.label`
   border-radius: 50%;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   height: 3.4rem;
+  opacity: ${(props) => (props.disabled ? '0.5' : '1')};
   transition: background-color 0.2s ease-out;
   width: 3.4rem;
 
   &:hover {
-    background-color: #e8f5fd;
+    background-color: ${(props) =>
+      props.disabled ? 'transparent' : '#e8f5fd'};
   }
 
   input {
@@ -85,6 +86,16 @@ export const Option = styled.label`
 `;
 
 export const OptionSubmit = styled.div`
+  button {
+    cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+    opacity: ${(props) => (props.disabled ? '0.5' : '1')};
+
+    &:hover {
+      background-color: ${(props) =>
+        props.disabled ? props.theme.twitterColor : '#1a8cd8'};
+    }
+  }
+
   @media only screen and (min-width: 576px) {
     margin-top: 1.2rem;
     padding-left: 1.2rem;
@@ -126,5 +137,20 @@ export const CloseButton = styled.div`
   svg {
     height: 2rem;
     width: 2rem;
+  }
+`;
+
+export const LoadingNewPost = styled.div`
+  border-top: 0.1rem solid ${(props) => props.theme.border};
+  display: flex;
+  justify-content: center;
+  height: ${(props) => (props.loading ? '7.6rem' : '0')};
+  overflow: hidden;
+  margin-top: 1.6rem;
+  transition: height 0.2s ease-out;
+  width: 100%;
+
+  img {
+    width: 6rem;
   }
 `;

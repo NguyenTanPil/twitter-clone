@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AiOutlineClose, AiOutlineSchedule } from 'react-icons/ai';
 import { BiGift } from 'react-icons/bi';
 import { BsEmojiSmile } from 'react-icons/bs';
-import { CgPoll } from 'react-icons/cg';
+import { BiMoviePlay } from 'react-icons/bi';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { RiImageLine } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ import { selectUser } from '../../../features/user/userSlice';
 import db from '../../../firebase';
 import { Avatar } from '../../Common/Avatar';
 import { SubmitButton } from '../../Common/Button';
+import EmojiModel from '../../EmojiModel';
+import GifModel from '../../GifModel';
 import loadingNewPostImg from '../loading-post-item.gif';
 import {
   CloseButton,
@@ -29,38 +31,49 @@ import {
 const TweetBox = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [postContent, setPostContent] = useState('');
-  const [image, setImage] = useState();
-  const [loading, setLoading] = useState(false);
 
-  const handlePreviewImage = (e) => {
+  const [postContent, setPostContent] = useState('');
+  const [media, setMedia] = useState();
+  const [loading, setLoading] = useState(false);
+  const [showGifModel, setShowGifModel] = useState(false);
+  const [showEmojiModel, setShowEmojiModel] = useState(false);
+  const [option, setOption] = useState('');
+
+  const handlePreviewMedia = (e, type) => {
     const reader = new FileReader();
     const file = e.target.files[0];
     try {
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImage(reader.result);
+          setMedia(reader.result);
+          if (type === 'image') {
+            setOption('image');
+          } else {
+            setOption('video');
+          }
         }
       };
 
       reader.readAsDataURL(file);
     } catch (error) {
-      setImage('');
+      setMedia('');
     }
   };
 
   const handlePost = async () => {
     // Reset tweetbox
     setPostContent('');
-    setImage('');
+    setMedia('');
     setLoading(true);
+    setOption('');
 
     // Upload image to cloudinary
-    const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}/image/upload`;
+    const typeUpload = option === 'video' ? 'video' : 'image';
+    const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}/${typeUpload}/upload`;
 
     // Create form data
     const data = new FormData();
-    data.append('file', image);
+    data.append('file', media);
     data.append(
       'upload_preset',
       process.env.REACT_APP_CLOUDINARY_UNSIGNED_UPLOAD_PRESET,
@@ -71,9 +84,9 @@ const TweetBox = () => {
       body: data,
     });
 
-    // Response image url from cloudinary
+    // Response media url from cloudinary
     const fileRes = await res.json();
-    const imageUrl = fileRes.secure_url;
+    const mediaUrl = fileRes.secure_url;
 
     // Add post to firebase store
     const dt = new Date();
@@ -82,10 +95,11 @@ const TweetBox = () => {
       avatar: user.avatar,
       content: postContent,
       displayName: user.name,
-      image: imageUrl,
+      image: mediaUrl,
       userName: `@${user.name}`,
       verified: false,
       createdAt: createdAt,
+      type: option,
     };
     const docRef = await addDoc(collection(db, 'posts'), post);
     const id = docRef.id;
@@ -103,6 +117,24 @@ const TweetBox = () => {
     setLoading(false);
   };
 
+  const handleChosenGif = (gif) => {
+    setShowGifModel(false);
+    setMedia(gif);
+    setOption('gif');
+  };
+
+  const handleClosePreview = () => {
+    setMedia('');
+    setOption('');
+  };
+
+  const handleShowGifModel = () => {
+    if (option === 'gif' || option === '') {
+      setShowGifModel(true);
+    }
+    return;
+  };
+
   return (
     <Container>
       <Avatar>
@@ -117,44 +149,88 @@ const TweetBox = () => {
             onChange={(e) => setPostContent(e.target.value)}
           />
         </Input>
-        {image && (
+        {media && (
           <Preview>
-            <CloseButton onClick={() => setImage('')}>
+            <CloseButton onClick={handleClosePreview}>
               <AiOutlineClose />
             </CloseButton>
-            <img src={image} alt="" />
+            {option === 'image' ? (
+              <img src={media} alt="" />
+            ) : (
+              <video autoPlay muted loop>
+                <source src={media} type="video/mp4" />
+              </video>
+            )}
           </Preview>
         )}
         <Options>
           <OptionWrap>
-            <Option htmlFor="upload-image" title="Media">
-              <RiImageLine />
-              <input
-                id="upload-image"
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif"
-                onChange={handlePreviewImage}
-              />
+            <Option disabled={option === 'image' || option === '' ? 0 : 1}>
+              <div htmlFor="upload-image" title="Image">
+                <RiImageLine />
+                <input
+                  id="upload-image"
+                  type="file"
+                  disabled={
+                    option === 'image' || option === '' ? '' : 'disabled'
+                  }
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  onChange={(e) => handlePreviewMedia(e, 'image')}
+                />
+              </div>
             </Option>
-            <Option title="GIF" disabled={image ? 1 : 0}>
-              <BiGift />
+            <Option disabled={option === 'gif' || option === '' ? 0 : 1}>
+              <div title="GIF" onClick={handleShowGifModel}>
+                <BiGift />
+              </div>
+              {/* Gif model */}
+              {showGifModel && (
+                <GifModel
+                  setShowGifModel={setShowGifModel}
+                  handleChosenGif={handleChosenGif}
+                />
+              )}
             </Option>
-            <Option title="Poll" disabled={image ? 1 : 0}>
-              <CgPoll />
+            <Option disabled={option === 'video' || option === '' ? 0 : 1}>
+              <div htmlFor="upload-video" title="Video">
+                <BiMoviePlay />
+                <input
+                  id="upload-video"
+                  type="file"
+                  disabled={
+                    option === 'video' || option === '' ? '' : 'disabled'
+                  }
+                  accept="video/mp4,video/x-m4v,video/*"
+                  onChange={(e) => handlePreviewMedia(e, 'video')}
+                />
+              </div>
             </Option>
-            <Option title="Emoji">
-              <BsEmojiSmile />
+            <Option>
+              <div title="Emoji" onClick={() => setShowEmojiModel(true)}>
+                <BsEmojiSmile />
+              </div>
+              {/* Emoji model */}
+              {showEmojiModel && (
+                <EmojiModel
+                  setShowEmojiModel={setShowEmojiModel}
+                  setPostContent={setPostContent}
+                />
+              )}
             </Option>
-            <Option title="Schedule">
-              <AiOutlineSchedule />
+            <Option>
+              <div title="Schedule">
+                <AiOutlineSchedule />
+              </div>
             </Option>
-            <Option title="Location">
-              <HiOutlineLocationMarker />
+            <Option>
+              <div title="Location">
+                <HiOutlineLocationMarker />
+              </div>
             </Option>
           </OptionWrap>
-          <OptionSubmit disabled={postContent || image ? 0 : 1}>
+          <OptionSubmit disabled={postContent || media ? 0 : 1}>
             <SubmitButton
-              disabled={postContent || image ? false : true}
+              disabled={postContent || media ? false : true}
               onClick={handlePost}
             >
               Tweet

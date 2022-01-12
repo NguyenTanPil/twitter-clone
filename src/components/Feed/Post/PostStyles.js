@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CloseButton } from '../TweetBox/TweetBoxStyles';
 
 export const Container = styled.div`
   border-bottom: 0.1rem solid ${(props) => props.theme.border};
@@ -95,10 +96,34 @@ export const Body = styled.div`
   padding-top: 1.2rem;
   width: 100%;
 
-  img {
+  img,
+  video {
     border-radius: 2rem;
+    display: block;
     object-fit: contain;
     width: 100%;
+  }
+`;
+
+export const SoundAction = styled(CloseButton)`
+  display: none;
+  bottom: 1rem;
+  right: 1rem;
+  top: auto;
+  transition: display 0.2s ease-in-out;
+
+  svg {
+    font-size: 1.8rem;
+  }
+`;
+
+export const VideoWrap = styled.div`
+  position: relative;
+
+  &:hover {
+    ${SoundAction} {
+      display: flex;
+    }
   }
 `;
 

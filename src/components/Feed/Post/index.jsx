@@ -19,6 +19,7 @@ import { TiArrowSync } from 'react-icons/ti';
 import { BiUpload } from 'react-icons/bi';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import PostVideo from './PostVideo';
 
 const getTimeCreated = (createdTime) => {
   const dt = new Date();
@@ -48,7 +49,15 @@ const getTimeCreated = (createdTime) => {
   return result;
 };
 
-const Post = ({ avatar, createdAt, displayName, image, content, userName }) => {
+const Post = ({
+  avatar,
+  createdAt,
+  displayName,
+  image,
+  content,
+  userName,
+  type,
+}) => {
   return (
     <LazyLoadComponent>
       <Container>
@@ -71,7 +80,11 @@ const Post = ({ avatar, createdAt, displayName, image, content, userName }) => {
             <Content>{content}</Content>
           </Header>
           <Body>
-            <img src={image} alt="" />
+            {type === 'video' ? (
+              <PostVideo src={image} />
+            ) : (
+              <img src={image} alt="" />
+            )}
           </Body>
           <Footer>
             <Action>

@@ -75,6 +75,7 @@ const Feed = () => {
             userName,
             content,
             image,
+            type,
           } = post;
           return (
             <Post
@@ -84,6 +85,7 @@ const Feed = () => {
               displayName={displayName}
               image={image}
               content={content}
+              type={type}
               userName={userName}
             />
           );

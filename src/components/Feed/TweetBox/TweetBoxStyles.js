@@ -1,16 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   padding-left: 1.6rem;
   padding-right: 1.6rem;
+  width: 100%;
 `;
 
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: calc(100% - 6rem);
 `;
 
 export const Input = styled.div`
@@ -59,29 +61,33 @@ export const OptionWrap = styled.div`
 `;
 
 export const Option = styled.label`
-  border-radius: 50%;
-  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  height: 3.4rem;
-  opacity: ${(props) => (props.disabled ? '0.5' : '1')};
-  transition: background-color 0.2s ease-out;
-  width: 3.4rem;
+  position: relative;
 
-  &:hover {
-    background-color: ${(props) =>
-      props.disabled ? 'transparent' : '#e8f5fd'};
-  }
+  & > div:first-child {
+    border-radius: 50%;
+    cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    height: 3.4rem;
+    opacity: ${(props) => (props.disabled ? '0.5' : '1')};
+    transition: background-color 0.2s ease-out;
+    width: 3.4rem;
 
-  input {
-    width: 0;
-  }
+    &:hover {
+      background-color: ${(props) =>
+        props.disabled ? 'transparent' : '#e8f5fd'};
+    }
 
-  svg {
-    color: ${(props) => props.theme.twitterColor};
-    font-size: 1.8rem;
+    input {
+      width: 0;
+    }
+
+    svg {
+      color: ${(props) => props.theme.twitterColor};
+      font-size: 1.8rem;
+    }
   }
 `;
 
@@ -109,7 +115,8 @@ export const Preview = styled.div`
   transition: all 0.2s ease;
   width: 100%;
 
-  img {
+  img,
+  video {
     border-radius: 2rem;
     object-fit: contain;
     width: 100%;

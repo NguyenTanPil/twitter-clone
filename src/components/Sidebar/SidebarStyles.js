@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { MoreIcon } from '../Feed/Post/PostStyles';
 
 export const Container = styled.aside`
   @media only screen and (min-width: 576px) {
@@ -166,12 +167,31 @@ export const OptionContainer = styled.div`
   }
 `;
 
-export const User = styled.div`
+export const CurrentUser = styled.div`
+  display: flex;
+  align-items: center;
+  border-bottom: 0.1rem solid ${(props) => props.theme.border};
+  padding: 1.4rem 2rem;
+`;
+
+export const CheckIcon = styled(MoreIcon)`
+  color: ${(props) => props.theme.twitterColor};
+  cursor: default;
+  flex-grow: 1;
+  justify-content: flex-end;
+
+  &:hover {
+    background-color: #fff;
+  }
+`;
+
+export const User = styled(CurrentUser)`
+  border-bottom: 0;
   border-radius: 999rem;
   display: none;
-  align-items: center;
   margin-bottom: 1.2rem;
   padding: 1.2rem;
+  position: relative;
   transition: background-color 0.2s ease-out;
 
   @media only screen and (min-width: 576px) {
@@ -180,19 +200,24 @@ export const User = styled.div`
 
   &:hover {
     background-color: rgba(15, 20, 15, 0.1);
+
+    & > div:last-child {
+      transform: scale(1);
+    }
   }
 
   & > div:first-child {
     margin-right: 0;
   }
+
   & > div:nth-child(2),
-  & > div:last-child {
+  & > div:nth-child(3) {
     display: none;
   }
 
   @media only screen and (min-width: 1280px) {
     & > div:nth-child(2),
-    & > div:last-child {
+    & > div:nth-child(3) {
       display: block;
     }
 
@@ -205,4 +230,57 @@ export const User = styled.div`
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const SignOut = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  transform: scale(0);
+  transition: transform 0.2s ease-out;
+  width: 30rem;
+
+  & > div {
+    background-color: #fff;
+    border: 0.1rem solid #999;
+    border-radius: 1.6rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0 0.1rem 0.2rem 0,
+      rgba(60, 64, 67, 0.15) 0 0.2rem 0.6rem 0.2rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    &:before {
+      background: #fff;
+      border-bottom: 0.1rem solid #999;
+      border-right: 0.1rem solid #999;
+      display: block;
+      content: '';
+      height: 1.414rem;
+      position: absolute;
+      left: 2.25rem;
+      bottom: -0.8rem;
+      transform: rotate(45deg);
+      width: 1.414rem;
+      z-index: 1;
+    }
+
+    & > span {
+      color: ${(props) => props.theme.fontColor};
+      cursor: pointer;
+      font-size: 1.5rem;
+      font-weight: 500;
+      padding: 1.2rem 2rem 0.6rem;
+      transition: color 0.2s ease-out;
+
+      &:last-child {
+        padding-bottom: 1.2rem;
+        padding-top: 0.6rem;
+      }
+
+      &:hover {
+        color: ${(props) => props.theme.twitterColor};
+      }
+    }
+  }
 `;

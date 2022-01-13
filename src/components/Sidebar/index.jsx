@@ -5,12 +5,16 @@ import {
   SidebarOptions,
   User,
   Info,
+  SignOut,
+  CurrentUser,
+  CheckIcon,
 } from './SidebarStyles';
-import { SmallAvatar } from '../Common/Avatar';
+import { SmallAvatar, Avatar } from '../Common/Avatar';
 import SidebarOption from './SidebarOption';
 import { BsTwitter } from 'react-icons/bs';
 import { BiBookmark } from 'react-icons/bi';
 import { HiOutlineMail } from 'react-icons/hi';
+import { AiOutlineCheck } from 'react-icons/ai';
 import { CgList, CgProfile, CgMore, CgMathPlus } from 'react-icons/cg';
 import {
   RiHomeHeartFill,
@@ -20,8 +24,45 @@ import {
 } from 'react-icons/ri';
 import { Button } from '../Common/Button';
 import { MoreIcon, DisplayName, UserName } from '../Feed/Post/PostStyles';
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 const Sidebar = ({ user }) => {
+  const navigate = useNavigate();
+  const cookies = new Cookies();
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        cookies.remove('user', user, {
+          path: '/',
+          maxAge: 60 * 60,
+          sameSite: true,
+        });
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const handleSignOutAndCreateAccount = () => {
+    signOut(auth)
+      .then(() => {
+        cookies.remove('user', user, {
+          path: '/',
+          maxAge: 60 * 60,
+          sameSite: true,
+        });
+        navigate('/signup');
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <Container>
       <Wrap>
@@ -58,6 +99,26 @@ const Sidebar = ({ user }) => {
           <MoreIcon>
             <CgMore />
           </MoreIcon>
+          <SignOut>
+            <div>
+              <CurrentUser>
+                <Avatar>
+                  <img src={user.avatar} alt="" />
+                </Avatar>
+                <Info>
+                  <DisplayName>{user.name}</DisplayName>
+                  <UserName>@{user.name}</UserName>
+                </Info>
+                <CheckIcon>
+                  <AiOutlineCheck />
+                </CheckIcon>
+              </CurrentUser>
+              <span onClick={handleSignOutAndCreateAccount}>
+                Add new account
+              </span>
+              <span onClick={handleSignOut}>Log out</span>
+            </div>
+          </SignOut>
         </User>
       </Wrap>
     </Container>

@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { Form, Formik } from 'formik';
+import { useEffect } from 'react';
 import { AiFillLock } from 'react-icons/ai';
 import {
   BsFillPersonFill,
@@ -8,6 +9,7 @@ import {
 } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import { auth } from '../../firebase';
 import { Button } from '../Common/Button';
 import Input from '../Input';
@@ -113,6 +115,16 @@ const Signup = () => {
         }
       });
   };
+
+  useEffect(() => {
+    // If logined => current url is /home and setUser
+    const cookies = new Cookies();
+    const user = cookies.get('user');
+
+    if (user) {
+      navigate('/home');
+    }
+  }, [navigate]);
 
   return (
     <Container>

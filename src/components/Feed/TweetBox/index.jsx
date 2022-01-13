@@ -1,10 +1,8 @@
 import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
-import { AiOutlineClose, AiOutlineSchedule } from 'react-icons/ai';
-import { BiGift } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
+import { BiGift, BiMoviePlay } from 'react-icons/bi';
 import { BsEmojiSmile } from 'react-icons/bs';
-import { BiMoviePlay } from 'react-icons/bi';
-import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { RiImageLine } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from '../../../features/posts/postsSlice';
@@ -154,12 +152,12 @@ const TweetBox = () => {
             <CloseButton onClick={handleClosePreview}>
               <AiOutlineClose />
             </CloseButton>
-            {option === 'image' ? (
-              <img src={media} alt="" />
-            ) : (
+            {option === 'video' ? (
               <video autoPlay muted loop>
                 <source src={media} type="video/mp4" />
               </video>
+            ) : (
+              <img src={media} alt="" />
             )}
           </Preview>
         )}
@@ -216,16 +214,6 @@ const TweetBox = () => {
                   setPostContent={setPostContent}
                 />
               )}
-            </Option>
-            <Option>
-              <div title="Schedule">
-                <AiOutlineSchedule />
-              </div>
-            </Option>
-            <Option>
-              <div title="Location">
-                <HiOutlineLocationMarker />
-              </div>
             </Option>
           </OptionWrap>
           <OptionSubmit disabled={postContent || media ? 0 : 1}>

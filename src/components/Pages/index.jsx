@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { selectUser, setLoginDetail } from '../../features/user/userSlice';
-import Feed from '../Feed';
 import Sidebar from '../Sidebar';
 import Wedgets from '../Wedgets';
+import { Outlet } from 'react-router-dom';
 
-const Home = () => {
+const Page = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,10 +25,10 @@ const Home = () => {
   return (
     <>
       <Sidebar user={user} />
-      <Feed user={user} />
+      <Outlet />
       <Wedgets />
     </>
   );
 };
 
-export default Home;
+export default Page;

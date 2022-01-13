@@ -122,7 +122,7 @@ const Signup = () => {
     const user = cookies.get('user');
 
     if (user) {
-      navigate('/home');
+      navigate('/');
     }
   }, [navigate]);
 

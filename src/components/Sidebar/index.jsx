@@ -41,7 +41,7 @@ const Sidebar = ({ user }) => {
           maxAge: 60 * 60,
           sameSite: true,
         });
-        navigate('/');
+        navigate('/login');
       })
       .catch((error) => {
         console.log(error.message);

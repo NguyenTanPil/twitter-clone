@@ -1,10 +1,12 @@
-import { OptionContainer } from './SidebarStyles';
+import { OptionContainer, OptionContent } from './SidebarStyles';
 
-const SidebarOption = ({ active, hideInPhone, text, Icon }) => {
+const SidebarOption = ({ path, hideInPhone, text, Icon }) => {
   return (
-    <OptionContainer active={active} hideInPhone={hideInPhone}>
-      <Icon />
-      <span>{text}</span>
+    <OptionContainer hideInPhone={hideInPhone}>
+      <OptionContent to={path}>
+        <Icon />
+        <span>{text}</span>
+      </OptionContent>
     </OptionContainer>
   );
 };

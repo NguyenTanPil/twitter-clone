@@ -73,14 +73,33 @@ const Sidebar = ({ user }) => {
             </a>
           </Logo>
           <SidebarOptions>
-            <SidebarOption active text="Home" Icon={RiHomeHeartFill} />
-            <SidebarOption hideInPhone text="Explore" Icon={RiHashtag} />
-            <SidebarOption text="Notifications" Icon={RiNotification3Line} />
-            <SidebarOption text="Messages" Icon={HiOutlineMail} />
-            <SidebarOption hideInPhone text="Bookmarks" Icon={BiBookmark} />
-            <SidebarOption hideInPhone text="List" Icon={CgList} />
-            <SidebarOption hideInPhone text="Profile" Icon={CgProfile} />
-            <SidebarOption text="More" Icon={RiMoreFill} />
+            <SidebarOption path="/" text="Home" Icon={RiHomeHeartFill} />
+            <SidebarOption
+              path="/"
+              hideInPhone
+              text="Explore"
+              Icon={RiHashtag}
+            />
+            <SidebarOption
+              path="/"
+              text="Notifications"
+              Icon={RiNotification3Line}
+            />
+            <SidebarOption path="/" text="Messages" Icon={HiOutlineMail} />
+            <SidebarOption
+              path="/"
+              hideInPhone
+              text="Bookmarks"
+              Icon={BiBookmark}
+            />
+            <SidebarOption path="/" hideInPhone text="List" Icon={CgList} />
+            <SidebarOption
+              path="/profile"
+              hideInPhone
+              text="Profile"
+              Icon={CgProfile}
+            />
+            <SidebarOption path="/" text="More" Icon={RiMoreFill} />
           </SidebarOptions>
           <Button>
             <span>Tweet</span>

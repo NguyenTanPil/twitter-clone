@@ -18,7 +18,7 @@ const Page = () => {
     if (user) {
       dispatch(setLoginDetail(user));
     } else {
-      navigate('/');
+      navigate('/login');
     }
   }, [navigate, dispatch]);
 

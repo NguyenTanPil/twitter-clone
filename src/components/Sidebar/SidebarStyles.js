@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { MoreIcon } from '../Feed/Post/PostStyles';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.aside`
   @media only screen and (min-width: 576px) {
-    height: 100vh;
     max-width: 27.5rem;
     min-width: 8.4rem;
   }
@@ -132,16 +132,23 @@ export const SidebarOptions = styled.nav`
 `;
 
 export const OptionContainer = styled.div`
+  display: ${(props) => (props.hideInPhone ? 'none' : 'block')};
+
+  @media only screen and (min-width: 576px) {
+    display: block;
+  }
+`;
+
+export const OptionContent = styled(NavLink)`
   border-radius: 999rem;
-  display: ${(props) => (props.hideInPhone ? 'none' : 'flex')};
+  display: flex;
   align-items: center;
-  color: ${(props) => (props.active ? props.theme.twitterColor : '#000')};
   cursor: pointer;
   padding: 1.2rem;
   transition: color 0.2s ease-out;
 
-  @media only screen and (min-width: 576px) {
-    display: flex;
+  &.active {
+    color: ${(props) => props.theme.twitterColor};
   }
 
   span {

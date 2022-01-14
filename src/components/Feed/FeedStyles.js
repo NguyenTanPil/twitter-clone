@@ -36,7 +36,8 @@ export const Header = styled.div`
     white-space: nowrap;
   }
 
-  div {
+  & > div,
+  & > a {
     border-radius: 50%;
     cursor: pointer;
     display: flex;

@@ -52,6 +52,26 @@ const validate = {
   },
 };
 
+const convertCreateAtToJoinedTime = (createdAt) => {
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const date = new Date(parseInt(createdAt));
+
+  return `Joined ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+};
+
 const Login = () => {
   const [userInfo, setUserInfo] = useState();
   const dispatch = useDispatch();
@@ -68,6 +88,7 @@ const Login = () => {
       name: response.user.displayName,
       email: response.user.email,
       avatar: response.user.photoURL,
+      joined: convertCreateAtToJoinedTime(response.user.metadata.createdAt),
     };
 
     dispatch(setLoginDetail(user));

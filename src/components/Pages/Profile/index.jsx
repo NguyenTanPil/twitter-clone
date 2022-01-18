@@ -3,6 +3,7 @@ import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { selectUser } from '../../../features/user/userSlice';
+import EditProfileModel from '../../EditProfileModel';
 import placeholderBg from './placehoder-bg.jpg';
 import {
   Avatar,
@@ -39,6 +40,10 @@ const Profile = () => {
               <img src={user.avatar} alt="" />
             </Avatar>
             <EditProfile>
+              <EditProfileModel
+                background={placeholderBg}
+                avatar={user.avatar}
+              />
               <button>Edit Profile</button>
             </EditProfile>
           </AvatarAndEdit>
@@ -47,7 +52,7 @@ const Profile = () => {
             <span>@{user.name}</span>
             <span>
               <AiOutlineSchedule />
-              Joined January 2022
+              {user.joined}
             </span>
           </UserInfo>
           <FollowInfo>

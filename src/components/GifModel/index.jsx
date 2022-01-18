@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 const giphyFetch = new GiphyFetch(process.env.REACT_APP_GIPHY_API_KEY);
 
-const Model = ({ setShowGifModel, handleChosenGif }) => {
+const GifModel = ({ setShowGifModel, handleChosenGif }) => {
   const [searchMessage, setSearchMessage] = useState('');
   const [gifList, setGifList] = useState([]);
 
@@ -86,4 +86,4 @@ const Model = ({ setShowGifModel, handleChosenGif }) => {
   );
 };
 
-export default Model;
+export default GifModel;

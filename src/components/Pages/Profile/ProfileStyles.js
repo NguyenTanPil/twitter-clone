@@ -77,6 +77,8 @@ export const Avatar = styled.div`
     border-radius: 50%;
     cursor: pointer;
     display: block;
+    max-height: 14rem;
+    object-fit: cover;
     position: absolute;
     bottom: 20%;
     transition: opacity 0.2s ease-out;

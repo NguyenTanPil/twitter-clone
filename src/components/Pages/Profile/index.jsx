@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AiOutlineSchedule } from 'react-icons/ai';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
@@ -21,6 +22,7 @@ import {
 
 const Profile = () => {
   const user = useSelector(selectUser);
+  const [showEditProfileModel, setShowEditProfileModel] = useState(false);
 
   return (
     <Container>
@@ -40,11 +42,16 @@ const Profile = () => {
               <img src={user.avatar} alt="" />
             </Avatar>
             <EditProfile>
-              <EditProfileModel
-                background={placeholderBg}
-                avatar={user.avatar}
-              />
-              <button>Edit Profile</button>
+              {showEditProfileModel && (
+                <EditProfileModel
+                  background={placeholderBg}
+                  {...user}
+                  setShowModel={setShowEditProfileModel}
+                />
+              )}
+              <button onClick={() => setShowEditProfileModel(true)}>
+                Edit Profile
+              </button>
             </EditProfile>
           </AvatarAndEdit>
           <UserInfo>

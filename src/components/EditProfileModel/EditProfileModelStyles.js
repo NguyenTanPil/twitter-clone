@@ -16,11 +16,11 @@ export const BackgroundUpload = styled(Background)`
   img {
     display: block;
     height: auto;
+    max-height: 19rem;
   }
 `;
 
 export const BodyAutoHeight = styled(Body)`
-  height: auto;
   margin-top: 1rem;
 
   & > div:nth-child(2) {
@@ -39,7 +39,7 @@ export const OverLoadUpload = styled.div`
   left: 0;
   width: 100%;
 
-  div {
+  label {
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -55,6 +55,11 @@ export const OverLoadUpload = styled.div`
       svg {
         color: ${(props) => props.theme.twitterColor};
       }
+    }
+
+    input {
+      height: 0;
+      width: 0;
     }
   }
 
@@ -83,6 +88,55 @@ export const AvatarUpload = styled.div`
       img {
         position: relative;
       }
+    }
+  }
+`;
+
+export const FormEdit = styled.div`
+  padding-right: 0;
+  width: 100%;
+`;
+
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.6rem;
+
+  label {
+    color: #000;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    text-transform: capitalize;
+  }
+
+  button {
+    margin-left: auto;
+    margin-top: 2rem;
+    width: 10rem;
+  }
+
+  input {
+    background-color: #fff;
+    border: 0.1rem solid #d9d9d9;
+    border-radius: 0.4rem;
+    box-sizing: border-box;
+    color: ${(props) => props.theme.fontColor};
+    font-size: 1.8rem;
+    font-weight: 400;
+    outline: none;
+    padding: 1rem 1.2rem;
+    transition: border-color 0.2s ease-out;
+    width: 100%;
+
+    &::placeholder {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+
+    &:focus-within {
+      border-color: ${(props) => props.theme.twitterColor};
     }
   }
 `;

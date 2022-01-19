@@ -1,4 +1,6 @@
-import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { AiFillLock } from 'react-icons/ai';
 import { BsTwitter } from 'react-icons/bs';
@@ -6,12 +8,12 @@ import { FaFacebookF } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { MdEmail } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { setLoginDetail } from '../../features/user/userSlice';
-import { auth, provider } from '../../firebase';
+import db, { auth, provider } from '../../firebase';
 import { Button } from '../Common/Button';
-import { Form, Formik } from 'formik';
+import Input from '../Input';
 import {
   ChooseOption,
   Container,
@@ -23,7 +25,6 @@ import {
   Or,
   Wrap,
 } from './LoginStyles';
-import Input from '../Input';
 
 const validate = {
   // check email
@@ -83,17 +84,33 @@ const Login = () => {
     cookies.set('user', user, { path: '/', maxAge: 60 * 60, sameSite: true });
   };
 
-  const handleAfterLogin = (response) => {
-    const user = {
-      name: response.user.displayName,
-      email: response.user.email,
-      avatar: response.user.photoURL,
-      joined: convertCreateAtToJoinedTime(response.user.metadata.createdAt),
-    };
+  const handleAfterLogin = async (response) => {
+    const userId = response.user.uid;
+    let currentUser;
 
-    dispatch(setLoginDetail(user));
-    setCookie(user);
-    setUserInfo(user);
+    // check user is exists
+    const userSnap = await getDoc(doc(db, 'users', userId));
+
+    if (userSnap.exists()) {
+      currentUser = { id: userId, ...userSnap.data() };
+    } else {
+      const user = {
+        name: response.user.displayName,
+        email: response.user.email,
+        avatar: response.user.photoURL,
+        joined: convertCreateAtToJoinedTime(response.user.metadata.createdAt),
+        background: '',
+        bio: '',
+        location: '',
+        website: '',
+      };
+      const userRef = await setDoc(doc(db, 'users', userId), user);
+      currentUser = { id: userId, ...userRef.data() };
+    }
+
+    dispatch(setLoginDetail({ currentUser }));
+    setCookie(currentUser);
+    setUserInfo(currentUser);
   };
 
   const handleLoginWithGoogle = () => {

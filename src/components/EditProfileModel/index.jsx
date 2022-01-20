@@ -25,6 +25,7 @@ import {
   Title,
 } from './EditProfileModelStyles';
 import loadingGif from './loading-edit.gif';
+import Cookies from 'universal-cookie';
 
 const EditProfileModel = ({
   id,
@@ -75,6 +76,12 @@ const EditProfileModel = ({
   };
 
   const handleSaveEdit = async (user) => {
+    const cookies = new Cookies();
+    cookies.set('user', JSON.stringify({ id, joined, ...user }), {
+      path: '/',
+      sameSite: true,
+    });
+
     dispatch(setLoginDetail({ id, joined, ...user }));
     setLoading(false);
     setShowModel(false);
@@ -127,7 +134,6 @@ const EditProfileModel = ({
             {(props) => (
               <Form onSubmit={props.handleSubmit} style={{ height: '100%' }}>
                 <BodyAutoHeight>
-                  {console.log(props)}
                   <BackgroundUpload>
                     <img
                       src={props.values.background || placeholderBg}

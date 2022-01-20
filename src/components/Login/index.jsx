@@ -104,8 +104,8 @@ const Login = () => {
         location: '',
         website: '',
       };
-      const userRef = await setDoc(doc(db, 'users', userId), user);
-      currentUser = { id: userId, ...userRef.data() };
+      await setDoc(doc(db, 'users', userId), user);
+      currentUser = { id: userId, ...user };
     }
 
     dispatch(setLoginDetail({ currentUser }));

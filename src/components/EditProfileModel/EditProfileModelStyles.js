@@ -140,3 +140,7 @@ export const FormGroup = styled.div`
     }
   }
 `;
+
+export const LoadingEdit = styled.img`
+  max-width: 50rem;
+`;

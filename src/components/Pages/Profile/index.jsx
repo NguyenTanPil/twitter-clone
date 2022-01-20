@@ -34,7 +34,7 @@ const Profile = () => {
       </Header>
       <DetailInfo>
         <Background>
-          <img src={placeholderBg} alt="" />
+          <img src={user.background || placeholderBg} alt="" />
         </Background>
         <Detail>
           <AvatarAndEdit>

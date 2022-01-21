@@ -12,7 +12,7 @@ import {
   Content,
   Header,
 } from '../GifModel/GifModelStyles';
-import placeholderBg from '../Pages/Profile/placehoder-bg.jpg';
+import placeholderBg from '../../assets/placehoder-bg.jpg';
 import { Avatar } from '../Pages/Profile/ProfileStyles';
 import {
   AvatarUpload,
@@ -24,7 +24,7 @@ import {
   OverLoadUpload,
   Title,
 } from './EditProfileModelStyles';
-import loadingGif from './loading-edit.gif';
+import loadingGif from '../../assets/loading-edit.gif';
 import Cookies from 'universal-cookie';
 
 const EditProfileModel = ({

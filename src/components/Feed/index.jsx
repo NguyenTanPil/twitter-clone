@@ -5,7 +5,7 @@ import Post from './Post';
 import { useEffect, useState } from 'react';
 import db from '../../firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import loadingImg from './loading-posts.gif';
+import loadingImg from '../../assets/loading-posts.gif';
 import { setPosts, selectPosts } from '../../features/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 

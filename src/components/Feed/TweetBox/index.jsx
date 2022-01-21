@@ -12,7 +12,7 @@ import { Avatar } from '../../Common/Avatar';
 import { SubmitButton } from '../../Common/Button';
 import EmojiModel from '../../EmojiModel';
 import GifModel from '../../GifModel';
-import loadingNewPostImg from '../loading-post-item.gif';
+import loadingNewPostImg from '../../../assets/loading-post-item.gif';
 import {
   CloseButton,
   Container,

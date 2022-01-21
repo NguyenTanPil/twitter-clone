@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import logoBackground from './bg.svg';
+import logoBackground from '../../assets/login-bg.svg';
 
 export const Container = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ export const Wrap = styled.div`
   @media only screen and (min-width: 576px) {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
       rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-    padding: 4.8rem;
+    padding: 2.8rem 4.8rem;
   }
 
   @media only screen and (min-width: 1200px) {

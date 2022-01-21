@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { selectUser } from '../../../features/user/userSlice';
 import EditProfileModel from '../../EditProfileModel';
-import placeholderBg from './placehoder-bg.jpg';
+import placeholderBg from '../../../assets/placehoder-bg.jpg';
 import {
   Avatar,
   AvatarAndEdit,

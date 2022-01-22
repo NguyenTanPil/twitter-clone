@@ -144,32 +144,46 @@ export const Action = styled.div`
   font-weight: 400;
   transition: color 0.2s ease-out;
 
-  &:hover {
-    &:first-child {
+  &:first-child {
+    color: ${(props) => (props.active ? 'rgba(29, 155, 240, 1)' : '#536471')};
+
+    &:hover {
       color: rgba(29, 155, 240, 1);
 
       div {
         background-color: rgba(29, 155, 240, 0.1);
       }
     }
+  }
 
-    &:nth-child(2) {
+  &:nth-child(2) {
+    color: ${(props) => (props.active ? 'rgba(0, 186, 124, 1)' : '#536471')};
+
+    &:hover {
       color: rgba(0, 186, 124, 1);
 
       div {
         background-color: rgba(0, 186, 124, 0.1);
       }
     }
+  }
 
-    &:nth-child(3) {
+  &:nth-child(3) {
+    color: ${(props) => (props.active ? 'rgba(249, 24, 128, 1)' : '#536471')};
+
+    &:hover {
       color: rgba(249, 24, 128, 1);
 
       div {
         background-color: rgba(249, 24, 128, 0.1);
       }
     }
+  }
 
-    &:last-child {
+  &:last-child {
+    color: ${(props) => (props.active ? 'rgba(29, 155, 240, 1)' : '#536471')};
+
+    &:hover {
       color: rgba(29, 155, 240, 1);
 
       div {

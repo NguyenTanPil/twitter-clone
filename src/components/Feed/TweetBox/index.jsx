@@ -98,6 +98,7 @@ const TweetBox = () => {
       verified: false,
       createdAt: createdAt,
       type: option,
+      listUserLikes: [],
     };
     const docRef = await addDoc(collection(db, 'posts'), post);
     const id = docRef.id;

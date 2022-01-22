@@ -76,10 +76,12 @@ const Feed = () => {
             content,
             image,
             type,
+            listUserLikes,
           } = post;
           return (
             <Post
               key={id}
+              id={id}
               avatar={avatar}
               createdAt={createdAt}
               displayName={displayName}
@@ -87,6 +89,7 @@ const Feed = () => {
               content={content}
               type={type}
               userName={userName}
+              listUserLikes={listUserLikes}
             />
           );
         })

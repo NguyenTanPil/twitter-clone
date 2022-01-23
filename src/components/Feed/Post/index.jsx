@@ -9,8 +9,10 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../features/user/userSlice';
 import db from '../../../firebase';
+import CommentModel from '../../CommentModel';
 import { Avatar } from '../../Common/Avatar';
 import {
+  ActionIcon,
   Action,
   Body,
   Container,
@@ -24,34 +26,7 @@ import {
   Wrap,
 } from './PostStyles';
 import PostVideo from './PostVideo';
-
-const getTimeCreated = (createdTime) => {
-  const dt = new Date();
-  const currentTime = dt.getTime();
-
-  const unix_timestamp = (currentTime - createdTime) / 1000;
-  var days = Math.floor(unix_timestamp / (3600 * 24));
-  var hours = Math.floor((unix_timestamp % (3600 * 24)) / 3600);
-  var minutes = Math.floor((unix_timestamp % 3600) / 60);
-  var seconds = Math.floor(unix_timestamp % 60);
-
-  let result = '';
-  if (days > 360) {
-    result = `${Math.floor(days / 360)}y`;
-  } else if (days > 30) {
-    result = `${Math.floor(days / 30)}m`;
-  } else if (days > 0) {
-    result = `${days}d`;
-  } else if (hours > 0) {
-    result = `${hours}h`;
-  } else if (minutes > 0) {
-    result = `${minutes}m`;
-  } else {
-    result = `${seconds}s`;
-  }
-
-  return result;
-};
+import formatCreatedAt from '../../../Utils/formatCreatedAt';
 
 const formatLikeCount = (likes) => {
   if (likes >= 1000000) {
@@ -73,9 +48,12 @@ const Post = ({
   userName,
   type,
   listUserLikes,
+  comments,
 }) => {
   const user = useSelector(selectUser);
   const [listLike, setListLike] = useState(listUserLikes);
+  const [showComment, setShowComment] = useState(false);
+  const [commentCount, setCommentCount] = useState(comments);
 
   const handleLikeClick = async () => {
     if (listLike.includes(user.id)) {
@@ -108,7 +86,7 @@ const Post = ({
                 <DisplayName>{displayName}</DisplayName>
                 <UserName>{userName}</UserName>
                 <UserName>·</UserName>
-                <UserName>{getTimeCreated(createdAt)}</UserName>
+                <UserName>{formatCreatedAt(createdAt)}</UserName>
               </div>
               <MoreIcon>
                 <CgMore />
@@ -116,24 +94,36 @@ const Post = ({
             </Info>
             <Content>{content}</Content>
           </Header>
-          <Body>
-            {type === 'video' ? (
-              <PostVideo src={image} />
-            ) : (
-              <img src={image} alt="" />
-            )}
-          </Body>
+          {type !== 'text' && (
+            <Body>
+              {type === 'video' ? (
+                <PostVideo src={image} />
+              ) : (
+                <img src={image} alt="" />
+              )}
+            </Body>
+          )}
           <Footer>
-            <Action>
-              <div>
+            <Action onClick={() => setShowComment(true)}>
+              <ActionIcon>
                 <BiComment />
-              </div>
-              <span>27</span>
+              </ActionIcon>
+              <span>{formatLikeCount(commentCount)}</span>
+              {showComment && (
+                <CommentModel
+                  postId={id}
+                  avatar={avatar}
+                  displayName={displayName}
+                  userId={user.id}
+                  setShowModel={setShowComment}
+                  setCommentCount={setCommentCount}
+                />
+              )}
             </Action>
             <Action>
-              <div>
+              <ActionIcon>
                 <TiArrowSync />
-              </div>
+              </ActionIcon>
               <span>23</span>
             </Action>
             <Action
@@ -141,15 +131,15 @@ const Post = ({
               title={listLike.includes(user.id) ? 'Unlike' : 'Like'}
               onClick={handleLikeClick}
             >
-              <div>
+              <ActionIcon>
                 <AiOutlineHeart />
-              </div>
+              </ActionIcon>
               <span>{formatLikeCount(listLike.length)}</span>
             </Action>
             <Action>
-              <div>
+              <ActionIcon>
                 <BiUpload />
-              </div>
+              </ActionIcon>
             </Action>
           </Footer>
         </Wrap>

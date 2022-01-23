@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { CloseButton } from '../TweetBox/TweetBoxStyles';
+import { CloseButton } from '../../TweetBox/TweetBoxStyles';
 
 export const Container = styled.div`
   border-bottom: 0.1rem solid ${(props) => props.theme.border};
   box-sizing: border-box;
-  cursor: pointer;
+  /* cursor: pointer; */
   display: flex;
   max-width: 60rem;
   padding: 1.2rem;
@@ -136,6 +136,21 @@ export const Footer = styled.div`
   padding-right: 1.5rem;
 `;
 
+export const ActionIcon = styled.div`
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  transition: background-color 0.2s ease-out;
+  width: 3.5rem;
+
+  svg {
+    height: 1.875rem;
+    width: 1.875rem;
+  }
+`;
+
 export const Action = styled.div`
   color: #536471;
   cursor: pointer;
@@ -148,9 +163,12 @@ export const Action = styled.div`
     color: ${(props) => (props.active ? 'rgba(29, 155, 240, 1)' : '#536471')};
 
     &:hover {
-      color: rgba(29, 155, 240, 1);
+      & > svg,
+      & > span {
+        color: rgba(29, 155, 240, 1);
+      }
 
-      div {
+      ${ActionIcon} {
         background-color: rgba(29, 155, 240, 0.1);
       }
     }
@@ -162,7 +180,7 @@ export const Action = styled.div`
     &:hover {
       color: rgba(0, 186, 124, 1);
 
-      div {
+      ${ActionIcon} {
         background-color: rgba(0, 186, 124, 0.1);
       }
     }
@@ -174,7 +192,7 @@ export const Action = styled.div`
     &:hover {
       color: rgba(249, 24, 128, 1);
 
-      div {
+      ${ActionIcon} {
         background-color: rgba(249, 24, 128, 0.1);
       }
     }
@@ -186,28 +204,13 @@ export const Action = styled.div`
     &:hover {
       color: rgba(29, 155, 240, 1);
 
-      div {
+      ${ActionIcon} {
         background-color: rgba(29, 155, 240, 0.1);
       }
     }
   }
 
-  div {
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 3.5rem;
-    transition: background-color 0.2s ease-out;
-    width: 3.5rem;
-  }
-
-  svg {
-    height: 1.875rem;
-    width: 1.875rem;
-  }
-
-  span {
+  & > span {
     font-size: 1.3rem;
     font-weight: 500;
     line-height: 1.6rem;

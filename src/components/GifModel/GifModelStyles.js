@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-import { CloseButton as CloseBtn } from '../Feed/TweetBox/TweetBoxStyles';
+import { CloseButton as CloseBtn } from '../TweetBox/TweetBoxStyles';
 
 export const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
+  cursor: default;
   display: flex;
   align-items: center;
   justify-content: center;

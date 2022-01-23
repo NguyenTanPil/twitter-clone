@@ -1,18 +1,52 @@
-import { Container, Header, LoadingPosts } from './FeedStyles';
-import { BsStars } from 'react-icons/bs';
-import TweetBox from './TweetBox';
-import Post from './Post';
+import {
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import db from '../../firebase';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import loadingImg from '../../assets/loading-posts.gif';
-import { setPosts, selectPosts } from '../../features/posts/postsSlice';
+import { BsStars } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
+import loadingImg from '../../assets/loading-posts.gif';
+import {
+  addPost,
+  selectPosts,
+  setPosts,
+} from '../../features/posts/postsSlice';
+import { selectUser } from '../../features/user/userSlice';
+import db from '../../firebase';
+import TweetBox from '../TweetBox';
+import { Container, Header, LoadingPosts } from './FeedStyles';
+import Post from './Post';
 
 const Feed = () => {
-  const { posts } = useSelector(selectPosts);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const { posts } = useSelector(selectPosts);
   const [isLoading, setIsLoading] = useState(false);
+
+  const createPost = async (data) => {
+    const post = { ...data };
+    post.userId = user.id;
+    post.avatar = user.avatar;
+    post.displayName = user.name;
+    post.userName = `@${user.name}`;
+    post.listUserLikes = [];
+    post.verified = false;
+
+    const docRef = await addDoc(collection(db, 'posts'), post);
+    const id = docRef.id;
+
+    dispatch(
+      addPost({
+        post: {
+          ...post,
+          id,
+        },
+      }),
+    );
+  };
 
   useEffect(() => {
     let isSubscribed = true;
@@ -59,7 +93,11 @@ const Feed = () => {
           <BsStars />
         </div>
       </Header>
-      <TweetBox />
+      <TweetBox
+        avatar={user.avatar}
+        contentBtn="Tweet"
+        handleSubmit={createPost}
+      />
 
       {isLoading ? (
         <LoadingPosts>
@@ -77,6 +115,7 @@ const Feed = () => {
             image,
             type,
             listUserLikes,
+            comments,
           } = post;
           return (
             <Post
@@ -90,6 +129,7 @@ const Feed = () => {
               type={type}
               userName={userName}
               listUserLikes={listUserLikes}
+              comments={comments}
             />
           );
         })

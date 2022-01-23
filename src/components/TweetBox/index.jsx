@@ -1,18 +1,13 @@
-import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiGift, BiMoviePlay } from 'react-icons/bi';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { RiImageLine } from 'react-icons/ri';
-import { useDispatch, useSelector } from 'react-redux';
-import { addPost } from '../../../features/posts/postsSlice';
-import { selectUser } from '../../../features/user/userSlice';
-import db from '../../../firebase';
-import { Avatar } from '../../Common/Avatar';
-import { SubmitButton } from '../../Common/Button';
-import EmojiModel from '../../EmojiModel';
-import GifModel from '../../GifModel';
-import loadingNewPostImg from '../../../assets/loading-post-item.gif';
+import { Avatar } from '../Common/Avatar';
+import { SubmitButton } from '../Common/Button';
+import EmojiModel from '../EmojiModel';
+import GifModel from '../GifModel';
+import loadingNewPostImg from '../../assets/loading-post-item.gif';
 import {
   CloseButton,
   Container,
@@ -26,16 +21,13 @@ import {
   Preview,
 } from './TweetBoxStyles';
 
-const TweetBox = () => {
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-
+const TweetBox = ({ avatar, contentBtn, handleSubmit }) => {
   const [postContent, setPostContent] = useState('');
-  const [media, setMedia] = useState();
+  const [media, setMedia] = useState('');
   const [loading, setLoading] = useState(false);
   const [showGifModel, setShowGifModel] = useState(false);
   const [showEmojiModel, setShowEmojiModel] = useState(false);
-  const [option, setOption] = useState('');
+  const [option, setOption] = useState('text');
 
   const handlePreviewMedia = (e, type) => {
     const reader = new FileReader();
@@ -63,54 +55,42 @@ const TweetBox = () => {
     setPostContent('');
     setMedia('');
     setLoading(true);
-    setOption('');
+    setOption('text');
 
-    // Upload image to cloudinary
-    const typeUpload = option === 'video' ? 'video' : 'image';
-    const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}/${typeUpload}/upload`;
+    let mediaUrl = '';
+    if (media) {
+      // Upload image to cloudinary
+      const typeUpload = option === 'video' ? 'video' : 'image';
+      const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}/${typeUpload}/upload`;
 
-    // Create form data
-    const data = new FormData();
-    data.append('file', media);
-    data.append(
-      'upload_preset',
-      process.env.REACT_APP_CLOUDINARY_UNSIGNED_UPLOAD_PRESET,
-    );
+      // Create form data
+      const data = new FormData();
+      data.append('file', media);
+      data.append(
+        'upload_preset',
+        process.env.REACT_APP_CLOUDINARY_UNSIGNED_UPLOAD_PRESET,
+      );
 
-    const res = await fetch(url, {
-      method: 'POST',
-      body: data,
-    });
+      const res = await fetch(url, {
+        method: 'POST',
+        body: data,
+      });
 
-    // Response media url from cloudinary
-    const fileRes = await res.json();
-    const mediaUrl = fileRes.secure_url;
+      // Response media url from cloudinary
+      const fileRes = await res.json();
+      mediaUrl = fileRes.secure_url;
+    }
 
-    // Add post to firebase store
+    // submit
     const dt = new Date();
     const createdAt = dt.getTime();
-    const post = {
-      avatar: user.avatar,
+    const submitData = {
       content: postContent,
-      displayName: user.name,
       image: mediaUrl,
-      userName: `@${user.name}`,
-      verified: false,
       createdAt: createdAt,
       type: option,
-      listUserLikes: [],
     };
-    const docRef = await addDoc(collection(db, 'posts'), post);
-    const id = docRef.id;
-
-    dispatch(
-      addPost({
-        post: {
-          ...post,
-          id,
-        },
-      }),
-    );
+    await handleSubmit(submitData);
 
     // unshow loading
     setLoading(false);
@@ -137,7 +117,7 @@ const TweetBox = () => {
   return (
     <Container>
       <Avatar>
-        <img src={user.avatar} alt="avt" />
+        <img src={avatar} alt="avt" />
       </Avatar>
       <Form>
         <Input>
@@ -164,21 +144,21 @@ const TweetBox = () => {
         )}
         <Options>
           <OptionWrap>
-            <Option disabled={option === 'image' || option === '' ? 0 : 1}>
+            <Option disabled={option === 'image' || option === 'text' ? 0 : 1}>
               <div htmlFor="upload-image" title="Image">
                 <RiImageLine />
                 <input
                   id="upload-image"
                   type="file"
                   disabled={
-                    option === 'image' || option === '' ? '' : 'disabled'
+                    option === 'image' || option === 'text' ? '' : 'disabled'
                   }
                   accept="image/jpeg,image/png,image/webp,image/gif"
                   onChange={(e) => handlePreviewMedia(e, 'image')}
                 />
               </div>
             </Option>
-            <Option disabled={option === 'gif' || option === '' ? 0 : 1}>
+            <Option disabled={option === 'gif' || option === 'text' ? 0 : 1}>
               <div title="GIF" onClick={handleShowGifModel}>
                 <BiGift />
               </div>
@@ -190,7 +170,7 @@ const TweetBox = () => {
                 />
               )}
             </Option>
-            <Option disabled={option === 'video' || option === '' ? 0 : 1}>
+            <Option disabled={option === 'video' || option === 'text' ? 0 : 1}>
               <div htmlFor="upload-video" title="Video">
                 <BiMoviePlay />
                 <input
@@ -222,7 +202,7 @@ const TweetBox = () => {
               disabled={postContent || media ? false : true}
               onClick={handlePost}
             >
-              Tweet
+              {contentBtn}
             </SubmitButton>
           </OptionSubmit>
         </Options>

@@ -14,6 +14,7 @@ export const Content = styled.div`
     background-color: ${(props) => props.theme.border};
     border-radius: 1.6rem;
     padding: 1rem 1.6rem;
+    width: fit-content;
   }
 
   p {
@@ -35,6 +36,7 @@ export const Actions = styled.div`
   align-items: center;
   margin-left: 1.6rem;
   margin-top: 0.875rem;
+  width: fit-content;
 
   span {
     color: ${(props) => props.theme.twitterColor};

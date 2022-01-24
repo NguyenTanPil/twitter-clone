@@ -7,7 +7,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import db from '../../firebase';
 import Comment from '../Comment';
@@ -19,7 +19,13 @@ import {
   Header,
 } from '../GifModel/GifModelStyles';
 import TweetBox from '../TweetBox';
-import { Body, CommentContainer, NotComments } from './CommentModelStyles';
+import {
+  Body,
+  CommentContainer,
+  CommentItem,
+  NotComments,
+} from './CommentModelStyles';
+import Reply from '../Reply';
 
 const CommentModel = ({
   postId,
@@ -30,6 +36,7 @@ const CommentModel = ({
   setCommentCount,
 }) => {
   const [comments, setComments] = useState([]);
+  const inputRef = useRef();
 
   useEffect(() => {
     let isSubscribed = true;
@@ -86,6 +93,10 @@ const CommentModel = ({
     });
   };
 
+  const handleFocus = () => {
+    inputRef.current.focus();
+  };
+
   return (
     <Container>
       <Content>
@@ -100,6 +111,7 @@ const CommentModel = ({
         <Body>
           <TweetBox
             avatar={avatar}
+            ref={inputRef}
             contentBtn="Post"
             handleSubmit={handleCreateComment}
           />
@@ -108,7 +120,12 @@ const CommentModel = ({
               <NotComments>Don't comment! Start commenting!</NotComments>
             ) : (
               comments.map((comment) => {
-                return <Comment key={comment.id} {...comment} />;
+                return (
+                  <CommentItem key={comment.id}>
+                    <Comment {...comment} handleFocus={handleFocus} />
+                    <Reply />
+                  </CommentItem>
+                );
               })
             )}
           </CommentContainer>

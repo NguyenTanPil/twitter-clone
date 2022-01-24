@@ -18,10 +18,7 @@ export const CommentContainer = styled.div`
   }
 `;
 
-export const Replys = styled.div`
-  border-left: 0.2rem solid ${(props) => props.theme.twitterColor};
-  padding-left: 1rem;
-`;
+export const CommentItem = styled.div``;
 
 export const NotComments = styled.div`
   font-size: 1.8rem;

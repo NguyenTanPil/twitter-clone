@@ -1,9 +1,8 @@
-import { Actions, Container, Content, UserName } from './CommentStyles';
-import { SmallAvatar } from '../Common/Avatar';
-
 import formatCreatedAt from '../../Utils/formatCreatedAt';
+import { SmallAvatar } from '../Common/Avatar';
+import { Actions, Container, Content, UserName } from './CommentStyles';
 
-const Comment = ({ avatar, content, displayName, createdAt }) => {
+const Comment = ({ avatar, content, displayName, createdAt, handleFocus }) => {
   return (
     <Container>
       <SmallAvatar>
@@ -16,7 +15,7 @@ const Comment = ({ avatar, content, displayName, createdAt }) => {
         </div>
         <Actions>
           <span>like</span>
-          <span>reply</span>
+          <span onClick={handleFocus}>reply</span>
           <span>{formatCreatedAt(createdAt)}</span>
         </Actions>
       </Content>

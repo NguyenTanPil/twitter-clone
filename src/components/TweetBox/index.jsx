@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useImperativeHandle, useRef, forwardRef } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiGift, BiMoviePlay } from 'react-icons/bi';
 import { BsEmojiSmile } from 'react-icons/bs';
@@ -21,13 +21,14 @@ import {
   Preview,
 } from './TweetBoxStyles';
 
-const TweetBox = ({ avatar, contentBtn, handleSubmit }) => {
+const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
   const [postContent, setPostContent] = useState('');
   const [media, setMedia] = useState('');
   const [loading, setLoading] = useState(false);
   const [showGifModel, setShowGifModel] = useState(false);
   const [showEmojiModel, setShowEmojiModel] = useState(false);
   const [option, setOption] = useState('text');
+  const inputRef = useRef();
 
   const handlePreviewMedia = (e, type) => {
     const reader = new FileReader();
@@ -114,6 +115,12 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }) => {
     return;
   };
 
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputRef.current.focus();
+    },
+  }));
+
   return (
     <Container>
       <Avatar>
@@ -125,6 +132,7 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }) => {
             type="text"
             placeholder="What's happening?"
             value={postContent}
+            ref={inputRef}
             onChange={(e) => setPostContent(e.target.value)}
           />
         </Input>
@@ -216,4 +224,4 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }) => {
   );
 };
 
-export default TweetBox;
+export default forwardRef(TweetBox);

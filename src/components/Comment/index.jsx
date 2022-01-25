@@ -2,7 +2,21 @@ import formatCreatedAt from '../../Utils/formatCreatedAt';
 import { SmallAvatar } from '../Common/Avatar';
 import { Actions, Container, Content, UserName } from './CommentStyles';
 
-const Comment = ({ avatar, content, displayName, createdAt, handleFocus }) => {
+const Comment = ({
+  id,
+  avatar,
+  content,
+  displayName,
+  createdAt,
+  userReply,
+  handleFocus,
+  setCommentId,
+}) => {
+  const handleReply = () => {
+    handleFocus(displayName);
+    setCommentId(id);
+  };
+
   return (
     <Container>
       <SmallAvatar>
@@ -11,11 +25,13 @@ const Comment = ({ avatar, content, displayName, createdAt, handleFocus }) => {
       <Content>
         <div>
           <UserName>{displayName}</UserName>
-          <p>{content}</p>
+          <p>
+            {userReply && <span>{userReply}</span>} {content}
+          </p>
         </div>
         <Actions>
           <span>like</span>
-          <span onClick={handleFocus}>reply</span>
+          <span onClick={handleReply}>reply</span>
           <span>{formatCreatedAt(createdAt)}</span>
         </Actions>
       </Content>

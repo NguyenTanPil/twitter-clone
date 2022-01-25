@@ -22,6 +22,10 @@ export const Content = styled.div`
     font-size: 1.4rem;
     font-weight: 400;
     margin: 0;
+
+    span {
+      color: ${(props) => props.theme.twitterColor};
+    }
   }
 `;
 

@@ -9,11 +9,12 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../features/user/userSlice';
 import db from '../../../firebase';
+import formatCreatedAt from '../../../Utils/formatCreatedAt';
 import CommentModel from '../../CommentModel';
 import { Avatar } from '../../Common/Avatar';
 import {
-  ActionIcon,
   Action,
+  ActionIcon,
   Body,
   Container,
   Content,
@@ -26,7 +27,6 @@ import {
   Wrap,
 } from './PostStyles';
 import PostVideo from './PostVideo';
-import formatCreatedAt from '../../../Utils/formatCreatedAt';
 
 const formatLikeCount = (likes) => {
   if (likes >= 1000000) {
@@ -112,9 +112,10 @@ const Post = ({
               {showComment && (
                 <CommentModel
                   postId={id}
-                  avatar={avatar}
-                  displayName={displayName}
+                  avatar={user.avatar}
+                  displayName={user.name}
                   userId={user.id}
+                  commentCount={commentCount}
                   setShowModel={setShowComment}
                   setCommentCount={setCommentCount}
                 />

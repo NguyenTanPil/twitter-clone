@@ -19,7 +19,9 @@ import {
   OptionSubmit,
   OptionWrap,
   Preview,
+  ReplyTo,
 } from './TweetBoxStyles';
+import { RiCloseFill } from 'react-icons/ri';
 
 const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
   const [postContent, setPostContent] = useState('');
@@ -28,6 +30,7 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
   const [showGifModel, setShowGifModel] = useState(false);
   const [showEmojiModel, setShowEmojiModel] = useState(false);
   const [option, setOption] = useState('text');
+  const [replyUser, setReplyUser] = useState('');
   const inputRef = useRef();
 
   const handlePreviewMedia = (e, type) => {
@@ -57,6 +60,7 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
     setMedia('');
     setLoading(true);
     setOption('text');
+    setReplyUser('');
 
     let mediaUrl = '';
     if (media) {
@@ -115,9 +119,15 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
     return;
   };
 
+  const handleCloseReply = () => {
+    inputRef.current.focus();
+    setReplyUser('');
+  };
+
   useImperativeHandle(ref, () => ({
-    focus() {
+    focus(userName) {
       inputRef.current.focus();
+      setReplyUser(userName);
     },
   }));
 
@@ -128,6 +138,17 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
       </Avatar>
       <Form>
         <Input>
+          {replyUser && (
+            <ReplyTo>
+              <div>
+                <span>Reply to</span>
+                <span>{replyUser}</span>
+                <span onClick={handleCloseReply}>
+                  <RiCloseFill />
+                </span>
+              </div>
+            </ReplyTo>
+          )}
           <input
             type="text"
             placeholder="What's happening?"

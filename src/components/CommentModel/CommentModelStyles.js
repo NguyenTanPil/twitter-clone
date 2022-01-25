@@ -31,3 +31,12 @@ export const NotComments = styled.div`
     font-size: 2.5rem;
   }
 `;
+
+export const LoadingReply = styled.div`
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 8rem;
+  }
+`;

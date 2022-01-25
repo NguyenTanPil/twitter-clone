@@ -17,7 +17,7 @@ export const Form = styled.div`
 
 export const Input = styled.div`
   box-sizing: border-box;
-  height: 4.2rem;
+  /* height: 4.2rem; */
 
   input {
     color: ${(props) => props.theme.fontColor};
@@ -33,7 +33,7 @@ export const Input = styled.div`
   }
 
   @media only screen and (min-width: 576px) {
-    height: 5.6rem;
+    /* height: 5.6rem; */
 
     input {
       padding-bottom: 0.8rem;
@@ -159,5 +159,47 @@ export const LoadingNewPost = styled.div`
 
   img {
     width: 6rem;
+  }
+`;
+
+export const ReplyTo = styled.div`
+  height: 3.5rem;
+
+  & > div {
+    color: ${(props) => props.theme.fontColor};
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 400;
+    width: fit-content;
+  }
+
+  span:nth-child(2) {
+    background-color: ${(props) => props.theme.border};
+    border-radius: 0.4rem;
+    display: inline-block;
+    color: ${(props) => props.theme.twitterColor};
+    margin-left: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  span:last-child {
+    background-color: ${(props) => props.theme.border};
+    border-radius: 50%;
+    color: ${(props) => props.theme.fontColor};
+    cursor: pointer;
+    height: 1.4rem;
+    margin-left: 0.5rem;
+    padding: 1rem;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      background-color: ${(props) => props.theme.itemHover};
+      color: ${(props) => props.theme.twitterColor};
+    }
+
+    svg {
+      font-size: 1.6rem;
+    }
   }
 `;

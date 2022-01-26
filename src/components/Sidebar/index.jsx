@@ -12,6 +12,7 @@ import {
 import { SmallAvatar, Avatar } from '../Common/Avatar';
 import SidebarOption from './SidebarOption';
 import { BsTwitter } from 'react-icons/bs';
+import { MdOutlineColorLens } from 'react-icons/md';
 import { BiBookmark } from 'react-icons/bi';
 import { HiOutlineMail } from 'react-icons/hi';
 import { AiOutlineCheck } from 'react-icons/ai';
@@ -99,7 +100,11 @@ const Sidebar = ({ user }) => {
               text="Profile"
               Icon={CgProfile}
             />
-            <SidebarOption path="/" text="More" Icon={RiMoreFill} />
+            <SidebarOption
+              path="/appearance"
+              text="Appearance"
+              Icon={MdOutlineColorLens}
+            />
           </SidebarOptions>
           <Button>
             <span>Tweet</span>

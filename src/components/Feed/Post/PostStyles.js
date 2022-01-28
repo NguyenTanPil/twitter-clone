@@ -6,13 +6,12 @@ export const Container = styled.div`
   box-sizing: border-box;
   /* cursor: pointer; */
   display: flex;
-  max-width: 60rem;
   padding: 1.2rem;
   transition: background-color 0.2s ease-out;
   width: 100%;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: ${(props) => props.theme.itemHover};
   }
 `;
 
@@ -29,6 +28,7 @@ export const Header = styled.div`
 `;
 
 export const DisplayName = styled.h3`
+  color: ${(props) => props.theme.titleColor};
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 600;
@@ -36,7 +36,7 @@ export const DisplayName = styled.h3`
 `;
 
 export const UserName = styled.span`
-  color: #536471;
+  color: ${(props) => props.theme.fontColor};
   font-size: 1.5rem;
   font-weight: 400;
   padding-left: 0;
@@ -61,17 +61,19 @@ export const Info = styled.div`
 
 export const MoreIcon = styled.div`
   border-radius: 50%;
+  color: ${(props) => props.theme.fontColor};
   cursor: pointer;
   display: flex;
   align-items: center;
   height: 3.4rem;
   justify-content: center;
   margin-left: 2rem;
-  transition: background-color 0.2s ease-out;
+  transition: all 0.2s ease-out;
   width: 3.4rem;
 
   &:hover {
     background-color: ${(props) => props.theme.itemHover};
+    color: ${(props) => props.theme.twitterColor};
   }
 
   svg {
@@ -81,6 +83,7 @@ export const MoreIcon = styled.div`
 `;
 
 export const Content = styled.p`
+  color: ${(props) => props.theme.fontColor};
   font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 0;
@@ -152,7 +155,7 @@ export const ActionIcon = styled.div`
 `;
 
 export const Action = styled.div`
-  color: #536471;
+  color: ${(props) => props.theme.fontColor};
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -160,10 +163,11 @@ export const Action = styled.div`
   transition: color 0.2s ease-out;
 
   &:first-child {
-    color: ${(props) => (props.active ? 'rgba(29, 155, 240, 1)' : '#536471')};
+    color: ${(props) =>
+      props.active ? 'rgba(29, 155, 240, 1)' : props.theme.fontColor};
 
     &:hover {
-      & > svg,
+      & > div > svg,
       & > span {
         color: rgba(29, 155, 240, 1);
       }
@@ -175,7 +179,8 @@ export const Action = styled.div`
   }
 
   &:nth-child(2) {
-    color: ${(props) => (props.active ? 'rgba(0, 186, 124, 1)' : '#536471')};
+    color: ${(props) =>
+      props.active ? 'rgba(0, 186, 124, 1)' : props.theme.fontColor};
 
     &:hover {
       color: rgba(0, 186, 124, 1);
@@ -187,7 +192,8 @@ export const Action = styled.div`
   }
 
   &:nth-child(3) {
-    color: ${(props) => (props.active ? 'rgba(249, 24, 128, 1)' : '#536471')};
+    color: ${(props) =>
+      props.active ? 'rgba(249, 24, 128, 1)' : props.theme.fontColor};
 
     &:hover {
       color: rgba(249, 24, 128, 1);
@@ -199,7 +205,8 @@ export const Action = styled.div`
   }
 
   &:last-child {
-    color: ${(props) => (props.active ? 'rgba(29, 155, 240, 1)' : '#536471')};
+    color: ${(props) =>
+      props.active ? 'rgba(29, 155, 240, 1)' : props.theme.fontColor};
 
     &:hover {
       color: rgba(29, 155, 240, 1);

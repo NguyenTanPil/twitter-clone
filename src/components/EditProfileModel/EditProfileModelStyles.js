@@ -4,6 +4,7 @@ import { Body } from '../GifModel/GifModelStyles';
 
 export const Title = styled.div`
   span {
+    color: ${(props) => props.theme.titleColor};
     font-size: 2rem;
     font-weight: 600;
   }
@@ -50,7 +51,7 @@ export const OverLoadUpload = styled.div`
     width: 4.4rem;
 
     &:hover {
-      background-color: ${(props) => props.theme.itemHover};
+      background-color: ${(props) => props.theme.border};
 
       svg {
         color: ${(props) => props.theme.twitterColor};
@@ -64,7 +65,7 @@ export const OverLoadUpload = styled.div`
   }
 
   svg {
-    color: #fff;
+    color: ${(props) => props.theme.shapeColor};
     font-size: 2rem;
     font-weight: 600;
   }
@@ -103,7 +104,7 @@ export const FormGroup = styled.div`
   margin-bottom: 1.6rem;
 
   label {
-    color: #000;
+    color: ${(props) => props.theme.titleColor};
     font-size: 1.6rem;
     font-weight: 500;
     margin-bottom: 0.8rem;
@@ -117,8 +118,8 @@ export const FormGroup = styled.div`
   }
 
   input {
-    background-color: #fff;
-    border: 0.1rem solid #d9d9d9;
+    background-color: ${(props) => props.theme.backgroundColor};
+    border: 0.1rem solid ${(props) => props.theme.border};
     border-radius: 0.4rem;
     box-sizing: border-box;
     color: ${(props) => props.theme.fontColor};

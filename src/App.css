@@ -1,30 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Fredericka+the+Great&family=Poppins&family=Roboto&family=Zen+Antique+Soft&display=swap');
 
-.App {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 69rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+::-moz-selection {
+  /* Code for Firefox */
+  background-color: #f7f9f9;
 }
 
-@media only screen and (min-width: 576px) {
-  .App {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .App {
-    max-width: 89rem;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .App {
-    max-width: 124rem;
-  }
+::selection {
+  background-color: #f7f9f9;
 }

@@ -30,7 +30,7 @@ export const Content = styled.div`
 `;
 
 export const UserName = styled.span`
-  color: #000;
+  color: ${(props) => props.theme.titleColor};
   font-size: 1.3rem;
   font-weight: 600;
 `;

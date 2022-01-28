@@ -14,7 +14,7 @@ export const Container = styled.aside`
 `;
 
 export const Wrap = styled.div`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.backgroundColor};
   border-right: 0.1rem solid ${(props) => props.theme.border};
   box-sizing: border-box;
   display: flex;
@@ -148,10 +148,13 @@ export const OptionContent = styled(NavLink)`
   transition: color 0.2s ease-out;
 
   &.active {
-    color: ${(props) => props.theme.twitterColor};
+    svg {
+      color: ${(props) => props.theme.twitterColor};
+    }
   }
 
   span {
+    color: ${(props) => props.theme.fontColor};
     display: none;
     font-size: 2rem;
     font-weight: 800;
@@ -164,13 +167,17 @@ export const OptionContent = styled(NavLink)`
   }
 
   svg {
+    color: ${(props) => props.theme.fontColor};
     height: 2.65rem;
     width: 2.65rem;
   }
 
   &:hover {
     background-color: ${(props) => props.theme.itemHover};
-    color: ${(props) => props.theme.twitterColor};
+
+    svg {
+      color: ${(props) => props.theme.twitterColor};
+    }
   }
 `;
 
@@ -188,7 +195,7 @@ export const CheckIcon = styled(MoreIcon)`
   justify-content: flex-end;
 
   &:hover {
-    background-color: #fff;
+    background-color: ${(props) => props.theme.backgroundColor};
   }
 `;
 
@@ -206,7 +213,7 @@ export const User = styled(CurrentUser)`
   }
 
   &:hover {
-    background-color: rgba(15, 20, 15, 0.1);
+    background-color: ${(props) => props.theme.itemHover};
 
     & > div:last-child {
       transform: scale(1);
@@ -248,8 +255,8 @@ export const SignOut = styled.div`
   width: 30rem;
 
   & > div {
-    background-color: #fff;
-    border: 0.1rem solid #999;
+    background-color: ${(props) => props.theme.backgroundColor};
+    border: 0.1rem solid ${(props) => props.theme.border};
     border-radius: 1.6rem;
     box-shadow: rgba(60, 64, 67, 0.3) 0 0.1rem 0.2rem 0,
       rgba(60, 64, 67, 0.15) 0 0.2rem 0.6rem 0.2rem;
@@ -258,9 +265,9 @@ export const SignOut = styled.div`
     position: relative;
 
     &:before {
-      background: #fff;
-      border-bottom: 0.1rem solid #999;
-      border-right: 0.1rem solid #999;
+      background: ${(props) => props.theme.backgroundColor};
+      border-bottom: 0.1rem solid ${(props) => props.theme.border};
+      border-right: 0.1rem solid ${(props) => props.theme.border};
       display: block;
       content: '';
       height: 1.414rem;

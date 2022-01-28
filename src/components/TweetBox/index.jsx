@@ -109,11 +109,11 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
 
   const handleClosePreview = () => {
     setMedia('');
-    setOption('');
+    setOption('text');
   };
 
   const handleShowGifModel = () => {
-    if (option === 'gif' || option === '') {
+    if (option === 'gif' || option === 'text') {
       setShowGifModel(true);
     }
     return;
@@ -206,7 +206,7 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
                   id="upload-video"
                   type="file"
                   disabled={
-                    option === 'video' || option === '' ? '' : 'disabled'
+                    option === 'video' || option === 'text' ? '' : 'disabled'
                   }
                   accept="video/mp4,video/x-m4v,video/*"
                   onChange={(e) => handlePreviewMedia(e, 'video')}
@@ -228,7 +228,7 @@ const TweetBox = ({ avatar, contentBtn, handleSubmit }, ref) => {
           </OptionWrap>
           <OptionSubmit disabled={postContent || media ? 0 : 1}>
             <SubmitButton
-              disabled={postContent || media ? false : true}
+              disabled={postContent || media ? 0 : 1}
               onClick={handlePost}
             >
               {contentBtn}

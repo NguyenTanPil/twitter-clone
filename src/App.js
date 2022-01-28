@@ -8,15 +8,25 @@ import Pages from './components/Pages';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { ThemeProvider } from 'styled-components';
-import { light, dark } from './components/Theme';
+import { light, dark, dim } from './components/Theme';
 import { useState } from 'react';
+import Root from './components/Root';
+import Cookies from 'universal-cookie';
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => {
+    const cookies = new Cookies();
+    if (cookies.get('theme')) {
+      return cookies.get('theme').theme;
+    }
+    return 'light';
+  });
 
   return (
-    <ThemeProvider theme={theme === 'light' ? light : dark}>
-      <div className="App">
+    <ThemeProvider
+      theme={theme === 'light' ? light : theme === 'dim' ? dim : dark}
+    >
+      <Root>
         <GlobalStyle />
         <Router>
           <Routes>
@@ -25,7 +35,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route
                 path="/appearance"
-                element={<Appearance setTheme={setTheme} />}
+                element={<Appearance theme={theme} setTheme={setTheme} />}
               />
               <Route path="*" element={<Home />} />
             </Route>
@@ -33,7 +43,7 @@ function App() {
             <Route index path="/login" element={<Login />} />
           </Routes>
         </Router>
-      </div>
+      </Root>
     </ThemeProvider>
   );
 }

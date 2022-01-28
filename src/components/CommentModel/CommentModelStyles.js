@@ -21,6 +21,7 @@ export const CommentContainer = styled.div`
 export const CommentItem = styled.div``;
 
 export const NotComments = styled.div`
+  color: ${(props) => props.theme.fontColor};
   font-size: 1.8rem;
   text-align: center;
   padding-bottom: 1rem;

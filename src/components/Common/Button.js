@@ -29,11 +29,13 @@ export const SubmitButton = styled(Button)`
 `;
 
 export const FollowButton = styled(SubmitButton)`
-  background-color: #0f1419;
+  background-color: ${(props) => props.theme.titleColor};
+  color: ${(props) => props.theme.border};
   min-height: 3.2rem;
   min-width: 3.2rem;
 
   &:hover {
-    background-color: rgb(39, 44, 48);
+    background-color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.titleColor};
   }
 `;

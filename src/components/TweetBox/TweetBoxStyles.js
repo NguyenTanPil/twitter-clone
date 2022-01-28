@@ -1,28 +1,35 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor};
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  padding-left: 1.6rem;
-  padding-right: 1.6rem;
   width: 100%;
+
+  & > div:first-child {
+    margin-left: 1.6rem;
+  }
+
+  & > div:nth-child(2) {
+    margin-right: 1.6rem;
+  }
 `;
 
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(100% - 6rem);
+  width: calc(100% - 9.2rem);
 `;
 
 export const Input = styled.div`
   box-sizing: border-box;
-  /* height: 4.2rem; */
 
   input {
-    color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.backgroundColor};
     border: none;
     box-sizing: border-box;
+    color: ${(props) => props.theme.fontColor};
     font-size: 2rem;
     font-weight: 500;
     line-height: 2.4rem;
@@ -77,7 +84,7 @@ export const Option = styled.label`
 
     &:hover {
       background-color: ${(props) =>
-        props.disabled ? 'transparent' : '#e8f5fd'};
+        props.disabled ? 'transparent' : props.theme.itemHover};
     }
 
     input {
@@ -138,7 +145,7 @@ export const CloseButton = styled.div`
   z-index: 1008;
 
   &:hover {
-    background-color: ${(props) => props.theme.itemHover};
+    background-color: ${(props) => props.theme.border};
   }
 
   svg {

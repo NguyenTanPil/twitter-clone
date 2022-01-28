@@ -1,25 +1,42 @@
-import { Container, Header } from '../Profile/ProfileStyles';
-import { NavLink } from 'react-router-dom';
-import { HiArrowNarrowLeft } from 'react-icons/hi';
-import { FaCircle } from 'react-icons/fa';
+import { useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
+import { FaCircle } from 'react-icons/fa';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
+import { NavLink } from 'react-router-dom';
+import { Container, Header } from '../Profile/ProfileStyles';
 import {
+  BackgroundPicker,
   Body,
-  Intro,
+  ColorPicker,
   Customize,
   CustomizeItem,
-  ColorPicker,
-  BackgroundPicker,
+  Intro,
   PickerItem,
 } from './AppearanceStyles';
-import { useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const colors = ['blue', 'yellow', 'pink', 'purple', 'orange', 'green'];
 const backgrounds = ['light', 'dim', 'dark'];
 
-const Appearance = ({ setTheme }) => {
+const Appearance = ({ theme, setTheme }) => {
   const [color, setColor] = useState('blue');
-  const [background, setBackground] = useState('light');
+  const [background, setBackground] = useState(theme);
+
+  const handleChangeTheme = (backgroundItem) => {
+    const cookies = new Cookies();
+    const data = {
+      theme: backgroundItem,
+    };
+    const theme = JSON.stringify(data);
+
+    cookies.set('theme', theme, {
+      path: '/',
+      maxAge: 60 * 60,
+      sameSite: true,
+    });
+
+    setTheme(backgroundItem);
+  };
 
   return (
     <Container>
@@ -33,8 +50,9 @@ const Appearance = ({ setTheme }) => {
         <Intro>
           <h2>Customize your view</h2>
           <p>
-            Manage your color, and background. These settings affect all the
-            Twitter accounts on this browser.
+            {' '}
+            You can personalize your color, and background. These settings
+            affect all the Twitter accounts on this browser.
           </p>
         </Intro>
         <Customize>
@@ -72,7 +90,7 @@ const Appearance = ({ setTheme }) => {
                       id={backgroundItem}
                       checked={background === backgroundItem}
                       onChange={() => setBackground(backgroundItem)}
-                      onClick={() => setTheme(backgroundItem)}
+                      onClick={() => handleChangeTheme(backgroundItem)}
                     />
                     {background === backgroundItem ? (
                       <BsCheckLg />

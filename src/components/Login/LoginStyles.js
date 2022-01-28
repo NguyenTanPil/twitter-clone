@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import logoBackground from '../../assets/login-bg.svg';
 
 export const Container = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,13 +12,14 @@ export const Container = styled.div`
 `;
 
 export const Wrap = styled.div`
+  background-color: ${(props) => props.theme.shapeColor};
   border-radius: 1.5rem;
   max-width: 100rem;
   padding: 1.8rem 0.6rem 0.6rem;
 
   @media only screen and (min-width: 576px) {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1rem 3.6rem 0,
+      rgba(0, 0, 0, 0.06) 0 0 0 0.1rem;
     padding: 2.8rem 4.8rem;
   }
 
@@ -55,6 +57,7 @@ export const Logo = styled.div`
   }
 
   h2 {
+    color: ${(props) => props.theme.titleColor};
     font-size: 2.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -106,13 +109,14 @@ export const ChooseOption = styled.div`
 `;
 
 export const Or = styled.div`
+  color: ${(props) => props.theme.fontColor};
   display: flex;
   align-items: center;
   margin: 1.4rem 0;
   padding: 1rem 0;
 
   div {
-    background-color: #d9d9d9;
+    background-color: ${(props) => props.theme.border};
     height: 0.1rem;
     flex-grow: 1;
   }
@@ -146,7 +150,7 @@ export const MiddleLogin = styled.div`
     height: 4.8rem;
 
     &:first-child {
-      background-color: #fff;
+      background-color: ${(props) => props.theme.backgroundColor};
       border-radius: 0.4rem 0 0 0.4rem;
       width: 4.8rem;
     }

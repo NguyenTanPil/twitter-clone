@@ -7,7 +7,7 @@ export const Container = styled.div`
 `;
 
 export const InputGroup = styled.div`
-  border-bottom: 0.2rem solid #d9d9d9;
+  border-bottom: 0.2rem solid ${(props) => props.theme.border};
   color: #d9d9d9;
   display: flex;
   align-items: center;
@@ -32,6 +32,7 @@ export const InputGroup = styled.div`
   }
 
   svg {
+    color: ${(props) => props.theme.fontColor};
     font-size: 2rem;
     height: 2rem;
     transition: color 0.2s ease-out;
@@ -40,7 +41,7 @@ export const InputGroup = styled.div`
 
   input {
     appearance: auto !important;
-    background-color: #fff !important;
+    background-color: transparent !important;
     border: 0;
     color: ${(props) => props.theme.fontColor} !important;
     font-size: 1.8rem;

@@ -1,17 +1,18 @@
 import { Container, Content, OverWrap } from './EmojiModelStyles';
-import Picker from 'emoji-picker-react';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 const EmojiModel = ({ setShowEmojiModel, setPostContent }) => {
-  const onEmojiClick = (event, emojiObject) => {
+  const onEmojiClick = (emoji, event) => {
     setPostContent((prev) => {
-      return prev + emojiObject.emoji;
+      return prev + emoji.native;
     });
   };
 
   return (
     <Container>
       <Content>
-        <Picker preload={true} onEmojiClick={onEmojiClick} />
+        <Picker set="twitter" autoFocus onClick={onEmojiClick} />
       </Content>
       <OverWrap onClick={() => setShowEmojiModel(false)} />
     </Container>

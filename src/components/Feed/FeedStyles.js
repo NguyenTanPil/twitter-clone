@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor};
   box-sizing: border-box;
   border-right: 0.1rem solid ${(props) => props.theme.border};
   flex-grow: 1;
@@ -13,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.backgroundColor};
   display: flex;
   align-items: center;
   height: 5rem;
@@ -25,8 +26,9 @@ export const Header = styled.div`
   z-index: 1008;
 
   h2 {
-    flex-grow: 1;
+    color: ${(props) => props.theme.titleColor};
     cursor: pointer;
+    flex-grow: 1;
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.4rem;
@@ -56,7 +58,7 @@ export const Header = styled.div`
     }
 
     &:hover {
-      background-color: #e8f5fd;
+      background-color: ${(props) => props.theme.itemHover};
     }
   }
 `;

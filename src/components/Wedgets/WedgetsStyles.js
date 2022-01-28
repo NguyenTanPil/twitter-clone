@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor};
   box-sizing: border-box;
   margin-left: 0;
   padding-left: 1rem;
@@ -20,11 +21,11 @@ export const Container = styled.div`
 `;
 
 export const SearchInput = styled.div`
-  background-color: #eff3f4;
+  background-color: ${(props) => props.theme.border};
   border: 0.1rem solid transparent;
   border-radius: 999rem;
   display: flex;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.6rem;
   margin-top: 0.6rem;
   position: sticky;
   top: 0.6rem;
@@ -59,7 +60,7 @@ export const SearchInput = styled.div`
     color: ${(props) => props.theme.fontColor};
     border: none;
     flex-grow: 1;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 400;
     outline: none;
     padding: 1.2rem;
@@ -67,7 +68,7 @@ export const SearchInput = styled.div`
 `;
 
 export const Trends = styled.div`
-  background-color: rgb(247, 249, 249);
+  background-color: ${(props) => props.theme.shapeColor};
   border-radius: 1.6rem;
   display: flex;
   flex-direction: column;
@@ -80,6 +81,7 @@ export const Trends = styled.div`
 `;
 
 export const TrendsTitle = styled.div`
+  color: ${(props) => props.theme.titleColor};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -103,7 +105,7 @@ export const TrendsTitle = styled.div`
     width: 3.4rem;
 
     &:hover {
-      background-color: rgba(15, 20, 15, 0.1);
+      background-color: ${(props) => props.theme.itemHover};
     }
   }
 
@@ -114,6 +116,7 @@ export const TrendsTitle = styled.div`
 `;
 
 export const TrendItem = styled.div`
+  color: ${(props) => props.theme.fontColor};
   cursor: pointer;
   display: flex;
   align-items: flex-start;
@@ -122,11 +125,19 @@ export const TrendItem = styled.div`
   transition: background 0.2s ease-out;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: ${(props) => props.theme.itemHover};
   }
 
   div:last-child {
     margin-top: -0.6rem;
+
+    &:hover {
+      background-color: ${(props) => props.theme.backgroundColor};
+
+      svg {
+        color: ${(props) => props.theme.twitterColor};
+      }
+    }
   }
 
   & > span {
@@ -138,11 +149,13 @@ export const TrendItem = styled.div`
 
 export const TrendInfo = styled.div`
   span {
+    color: ${(props) => props.theme.fontColor};
     font-size: 1.3rem;
     font-weight: 400;
   }
 
   h4 {
+    color: ${(props) => props.theme.titleColor};
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
@@ -166,7 +179,7 @@ export const FollowItem = styled.div`
   transition: background-color 0.2s ease-out;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: ${(props) => props.theme.itemHover};
   }
 
   &:last-child {

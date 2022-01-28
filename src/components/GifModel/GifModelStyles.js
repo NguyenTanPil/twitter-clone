@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CloseButton as CloseBtn } from '../TweetBox/TweetBoxStyles';
 
 export const Container = styled.div`
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(91, 112, 131, 0.4);
   cursor: default;
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.backgroundColor};
   height: calc(100vh - 4.8rem);
   max-width: 58rem;
   overflow: hidden;
@@ -73,7 +73,6 @@ export const Body = styled.div`
 export const GifContainer = styled.div`
   box-sizing: border-box;
   cursor: pointer;
-
   padding-bottom: 0.5rem;
   transition: transform 0.2s ease-out;
   width: 50%;

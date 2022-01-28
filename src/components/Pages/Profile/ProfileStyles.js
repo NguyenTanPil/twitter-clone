@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { Header as FeedHeader } from '../../Feed/FeedStyles';
 
 export const Container = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor};
   box-sizing: border-box;
   border-right: 0.1rem solid ${(props) => props.theme.border};
+  color: ${(props) => props.theme.titleColor};
   flex-grow: 1;
   padding-bottom: 5rem;
   width: calc(100% - 8.4rem);
@@ -14,6 +16,8 @@ export const Container = styled.div`
 `;
 
 export const Header = styled(FeedHeader)`
+  background-color: ${(props) => props.theme.backgroundColor};
+
   & > a {
     margin-right: 2rem;
 
@@ -29,6 +33,7 @@ export const Header = styled(FeedHeader)`
   }
 
   h2 {
+    cursor: default;
     flex-grow: 0;
   }
 `;
@@ -96,7 +101,7 @@ export const Avatar = styled.div`
 
 export const EditProfile = styled.div`
   button {
-    background-color: #fff;
+    background-color: ${(props) => props.theme.backgroundColor};
     border: 0.1rem solid ${(props) => props.theme.twitterColor};
     border-radius: 999rem;
     color: ${(props) => props.theme.twitterColor};
@@ -161,7 +166,7 @@ export const FollowCount = styled.div`
   }
 
   span {
-    color: #000;
+    color: ${(props) => props.theme.titleColor};
     font-weight: 600;
   }
 `;

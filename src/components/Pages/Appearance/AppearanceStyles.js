@@ -41,7 +41,7 @@ export const CustomizeItem = styled.div`
 `;
 
 export const ColorPicker = styled.div`
-  background-color: ${(props) => props.theme.border};
+  background-color: ${(props) => props.theme.shapeColor};
   border-radius: 1.4rem;
   display: flex;
   align-items: center;
@@ -130,9 +130,11 @@ export const BackgroundPicker = styled(ColorPicker)`
   padding: 1.3rem 1.2rem;
 
   div {
+    background-color: #fff;
     border: 0.2rem solid ${(props) => props.theme.fontColor};
     border-radius: 0.6rem;
     box-sizing: border-box;
+    color: #000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -140,7 +142,7 @@ export const BackgroundPicker = styled(ColorPicker)`
     margin: 0.4rem;
     padding-left: 2rem;
     padding-right: 2rem;
-    width: 30%;
+    width: 100%;
 
     &:nth-child(2) {
       background-color: #15202b;
@@ -172,6 +174,10 @@ export const BackgroundPicker = styled(ColorPicker)`
       svg {
         color: #000;
       }
+    }
+
+    @media only screen and (min-width: 576px) {
+      width: 30%;
     }
   }
 

@@ -68,7 +68,7 @@ const Wedgets = () => {
 
       <Follows>
         <TrendsTitle>
-          <h3>Trends for you</h3>
+          <h3>Who to follow</h3>
         </TrendsTitle>
         <FollowItem>
           <div>

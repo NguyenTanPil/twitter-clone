@@ -1,4 +1,4 @@
-export const light = {
+const light = {
   backgroundColor: '#fff',
   titleColor: '#000',
   twitterColor: '#1d9bf0',
@@ -9,7 +9,7 @@ export const light = {
   fontColor: '#536471',
 };
 
-export const dim = {
+const dim = {
   backgroundColor: '#15202b',
   titleColor: '#fff',
   twitterColor: '#1d9bf0',
@@ -20,13 +20,33 @@ export const dim = {
   fontColor: '#8899a6',
 };
 
-export const dark = {
+const dark = {
   backgroundColor: '#000',
   titleColor: '#fff',
   twitterColor: '#1d9bf0',
   shapeColor: '#15181c',
   twitterBackgroundColor: '#e6efc0',
-  border: '#38444d',
+  border: '#1b2528',
   itemHover: '#eff3f41a',
-  fontColor: '#8899a6',
+  fontColor: '#aaa398',
 };
+
+const colors = {
+  blue: '#1d9bf0',
+  yellow: '#ffd400',
+  pink: '#f91880',
+  purple: '#7856ff',
+  orange: '#ff7a00',
+  green: '#00ba7c',
+};
+const backgrounds = {
+  light,
+  dim,
+  dark,
+};
+
+export default function getTheme({ background, color }) {
+  const theme = backgrounds[background];
+  theme.twitterColor = colors[color];
+  return theme;
+}

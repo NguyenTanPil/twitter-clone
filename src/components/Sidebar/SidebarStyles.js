@@ -98,6 +98,7 @@ export const Logo = styled.div`
 
   a {
     border-radius: 50%;
+    color: #1d9bf0;
     display: flex;
     align-items: center;
     justify-content: center;

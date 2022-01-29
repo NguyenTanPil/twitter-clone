@@ -105,7 +105,8 @@ export const OptionSubmit = styled.div`
 
     &:hover {
       background-color: ${(props) =>
-        props.disabled ? props.theme.twitterColor : '#1a8cd8'};
+        props.disabled ? '' : props.theme.twitterColor + 'E5'};
+      opacity: ${(props) => (props.disabled ? '0.5' : '0.9')};
     }
   }
 

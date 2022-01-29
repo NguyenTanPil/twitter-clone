@@ -19,13 +19,14 @@ const colors = ['blue', 'yellow', 'pink', 'purple', 'orange', 'green'];
 const backgrounds = ['light', 'dim', 'dark'];
 
 const Appearance = ({ theme, setTheme }) => {
-  const [color, setColor] = useState('blue');
-  const [background, setBackground] = useState(theme);
+  const [color, setColor] = useState(theme.color);
+  const [background, setBackground] = useState(theme.background);
 
-  const handleChangeTheme = (backgroundItem) => {
+  const handleChangeTheme = ({ backgroundItem, colorItem }) => {
     const cookies = new Cookies();
     const data = {
-      theme: backgroundItem,
+      background: backgroundItem || background,
+      color: colorItem || color,
     };
     const theme = JSON.stringify(data);
 
@@ -35,7 +36,15 @@ const Appearance = ({ theme, setTheme }) => {
       sameSite: true,
     });
 
-    setTheme(backgroundItem);
+    if (colorItem) {
+      setColor(colorItem);
+    }
+
+    if (backgroundItem) {
+      setBackground(backgroundItem);
+    }
+
+    setTheme(data);
   };
 
   return (
@@ -67,7 +76,7 @@ const Appearance = ({ theme, setTheme }) => {
                       checked={color === colorItem}
                       name="color-picker"
                       id={colorItem}
-                      onChange={() => setColor(colorItem)}
+                      onChange={() => handleChangeTheme({ colorItem })}
                     />
                     {color === colorItem && <BsCheckLg />}
                   </label>
@@ -90,7 +99,7 @@ const Appearance = ({ theme, setTheme }) => {
                       id={backgroundItem}
                       checked={background === backgroundItem}
                       onChange={() => setBackground(backgroundItem)}
-                      onClick={() => handleChangeTheme(backgroundItem)}
+                      onClick={() => handleChangeTheme({ backgroundItem })}
                     />
                     {background === backgroundItem ? (
                       <BsCheckLg />

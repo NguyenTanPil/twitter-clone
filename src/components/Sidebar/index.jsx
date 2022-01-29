@@ -1,34 +1,34 @@
-import {
-  Container,
-  Wrap,
-  Logo,
-  SidebarOptions,
-  User,
-  Info,
-  SignOut,
-  CurrentUser,
-  CheckIcon,
-} from './SidebarStyles';
-import { SmallAvatar, Avatar } from '../Common/Avatar';
-import SidebarOption from './SidebarOption';
-import { BsTwitter } from 'react-icons/bs';
-import { MdOutlineColorLens } from 'react-icons/md';
-import { BiBookmark } from 'react-icons/bi';
-import { HiOutlineMail } from 'react-icons/hi';
-import { AiOutlineCheck } from 'react-icons/ai';
-import { CgList, CgProfile, CgMore, CgMathPlus } from 'react-icons/cg';
-import {
-  RiHomeHeartFill,
-  RiHashtag,
-  RiNotification3Line,
-  RiMoreFill,
-} from 'react-icons/ri';
-import { Button } from '../Common/Button';
-import { MoreIcon, DisplayName, UserName } from '../Feed/Post/PostStyles';
-import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
+import { AiOutlineCheck } from 'react-icons/ai';
+import { BiBookmark } from 'react-icons/bi';
+import { BsTwitter } from 'react-icons/bs';
+import { CgList, CgMathPlus, CgMore, CgProfile } from 'react-icons/cg';
+import { HiOutlineMail } from 'react-icons/hi';
+import { MdOutlineColorLens } from 'react-icons/md';
+import {
+  RiHashtag,
+  RiHomeHeartFill,
+  RiNotification3Line,
+} from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { auth } from '../../firebase';
+import { Avatar, SmallAvatar } from '../Common/Avatar';
+import { Button } from '../Common/Button';
+import { DisplayName, MoreIcon, UserName } from '../Feed/Post/PostStyles';
+import SidebarOption from './SidebarOption';
+import {
+  CheckIcon,
+  Container,
+  CurrentUser,
+  Info,
+  Logo,
+  SidebarOptions,
+  SignOut,
+  User,
+  Wrap,
+} from './SidebarStyles';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ user }) => {
   const navigate = useNavigate();
@@ -69,9 +69,9 @@ const Sidebar = ({ user }) => {
       <Wrap>
         <div>
           <Logo>
-            <a href="/">
+            <Link to="/">
               <BsTwitter />
-            </a>
+            </Link>
           </Logo>
           <SidebarOptions>
             <SidebarOption path="/" text="Home" Icon={RiHomeHeartFill} />

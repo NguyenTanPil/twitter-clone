@@ -11,11 +11,11 @@ export const Button = styled.button`
   letter-spacing: 0.1rem;
   margin-top: 2rem;
   padding: 1.2rem;
-  transition: background-color 0.2s ease-out;
+  transition: opacity 0.2s ease-out;
   width: 100%;
 
   &:hover {
-    background-color: #1a8cd8;
+    opacity: 0.9;
   }
 `;
 

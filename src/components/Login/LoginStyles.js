@@ -51,7 +51,7 @@ export const Logo = styled.div`
   width: 100%;
 
   svg {
-    color: ${(props) => props.theme.twitterColor};
+    color: #1d9bf0;
     font-size: 3rem;
     font-weight: 700;
   }

@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 export const Body = styled.div`
-  padding: 1.2rem 3.2rem;
+  padding: 1.2rem 0;
+
+  & > div {
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
+  }
 `;
 
 export const Intro = styled.div`
@@ -101,7 +106,7 @@ export const PickerItem = styled.div`
   position: relative;
 
   label {
-    background-color: ${(props) => props.theme.twitterColor};
+    background-color: #1d9bf0;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -131,7 +136,7 @@ export const BackgroundPicker = styled(ColorPicker)`
 
   div {
     background-color: #fff;
-    border: 0.2rem solid ${(props) => props.theme.fontColor};
+    border: 0.2rem solid ${(props) => props.theme.border};
     border-radius: 0.6rem;
     box-sizing: border-box;
     color: #000;

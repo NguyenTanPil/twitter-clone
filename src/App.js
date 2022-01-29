@@ -8,7 +8,7 @@ import Pages from './components/Pages';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { ThemeProvider } from 'styled-components';
-import { light, dark, dim } from './components/Theme';
+import getTheme from './components/Theme';
 import { useState } from 'react';
 import Root from './components/Root';
 import Cookies from 'universal-cookie';
@@ -17,15 +17,13 @@ function App() {
   const [theme, setTheme] = useState(() => {
     const cookies = new Cookies();
     if (cookies.get('theme')) {
-      return cookies.get('theme').theme;
+      return cookies.get('theme');
     }
-    return 'light';
+    return { background: 'light', color: 'blue' };
   });
 
   return (
-    <ThemeProvider
-      theme={theme === 'light' ? light : theme === 'dim' ? dim : dark}
-    >
+    <ThemeProvider theme={getTheme(theme)}>
       <Root>
         <GlobalStyle />
         <Router>

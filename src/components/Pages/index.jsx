@@ -6,11 +6,13 @@ import { selectUser, setLoginDetail } from '../../features/user/userSlice';
 import Sidebar from '../Sidebar';
 import Wedgets from '../Wedgets';
 import { Outlet } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Page = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     const cookies = new Cookies();
@@ -26,7 +28,8 @@ const Page = () => {
     <>
       <Sidebar user={user} />
       <Outlet />
-      <Wedgets />
+      {/* if message page then not display */}
+      {!/^\/message/.test(location.pathname) && <Wedgets />}
     </>
   );
 };

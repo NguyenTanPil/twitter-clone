@@ -86,7 +86,11 @@ const Sidebar = ({ user }) => {
               text="Notifications"
               Icon={RiNotification3Line}
             />
-            <SidebarOption path="/" text="Messages" Icon={HiOutlineMail} />
+            <SidebarOption
+              path="/message"
+              text="Messages"
+              Icon={HiOutlineMail}
+            />
             <SidebarOption
               path="/"
               hideInPhone

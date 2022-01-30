@@ -1,17 +1,18 @@
-import './App.css';
-import GlobalStyle from './GlobalStyles';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Pages/Home';
-import Profile from './components/Pages/Profile';
-import Appearance from './components/Pages/Appearance';
-import Pages from './components/Pages';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import { ThemeProvider } from 'styled-components';
-import getTheme from './components/Theme';
 import { useState } from 'react';
-import Root from './components/Root';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import Cookies from 'universal-cookie';
+import './App.css';
+import Login from './components/Login';
+import Pages from './components/Pages';
+import Appearance from './components/Pages/Appearance';
+import Home from './components/Pages/Home';
+import Message from './components/Pages/Message';
+import Profile from './components/Pages/Profile';
+import Root from './components/Root';
+import Signup from './components/Signup';
+import getTheme from './components/Theme';
+import GlobalStyle from './GlobalStyles';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Pages />}>
               <Route index element={<Home />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/message" element={<Message />} />
               <Route
                 path="/appearance"
                 element={<Appearance theme={theme} setTheme={setTheme} />}

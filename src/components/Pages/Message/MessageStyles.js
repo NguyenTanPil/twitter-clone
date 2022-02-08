@@ -20,11 +20,43 @@ export const Conversation = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 2rem;
-  width: 34rem;
+  width: 6.4rem;
+
+  @media only screen and (min-width: 768px) {
+    width: 34rem;
+  }
 
   & > div:first-child {
     margin-left: 1.2rem;
     margin-right: 1.2rem;
+
+    input {
+      display: none;
+    }
+
+    &:first-child {
+      height: 4rem;
+      width: 4rem;
+
+      svg {
+        padding-left: 0.5rem;
+      }
+    }
+
+    @media only screen and (min-width: 768px) {
+      input {
+        display: block;
+      }
+
+      &:first-child {
+        height: 4.4rem;
+        width: auto;
+
+        svg {
+          padding-left: 1.2rem;
+        }
+      }
+    }
   }
 `;
 
@@ -40,10 +72,14 @@ export const ConversationItem = styled.div`
 `;
 
 export const PreviewConversation = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-around;
+  display: none;
+
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-around;
+  }
 
   & > div {
     display: flex;
@@ -87,7 +123,7 @@ export const Chat = styled.div`
   border-right: 0.1rem solid ${(props) => props.theme.border};
   padding-top: 2rem;
   height: calc(100vh - 7.2rem);
-  width: calc(100% - 32rem);
+  flex-grow: 1;
 `;
 
 export const ChatHeader = styled.div`
@@ -112,11 +148,19 @@ export const Info = styled.div`
 `;
 
 export const ChatView = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 7.4rem);
   width: 100%;
 `;
 
 export const Messages = styled.div`
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex-grow: 1;
+  overflow-y: auto;
   padding-top: 2rem;
   padding-left: 1.2rem;
   padding-right: 1.2rem;
